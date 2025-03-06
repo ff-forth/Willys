@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Willys Självutcheckning</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="willys-logo.png" alt="Willys Logo" class="logo">
+        </div>
+        <h1>Självutcheckning</h1>
+    </header>
+
+    <main id="app">
+        <!-- Innehållet kommer att ändras dynamiskt baserat på vilken sida vi är på -->
+        <div id="welcome-screen" class="page active">
+            <h2>Välkommen till Willys självutcheckning</h2>
+            <p>Tryck på skärmen för att börja</p>
+            <button id="start-button" class="primary-button">Starta</button>
+        </div>
+
+        <div id="scanning-page" class="page">
+            <h2>Skanna dina varor</h2>
+            <div class="product-list">
+                <h3>Dina varor:</h3>
+                <ul id="product-items">
+                    <!-- Produkter kommer att läggas till här dynamiskt -->
+                </ul>
+                <div class="total-section">
+                    <p>Totalt: <span id="total-amount">0</span> kr</p>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button id="scan-button" class="primary-button">Skanna vara</button>
+                <button id="proceed-to-payment" class="secondary-button">Gå till betalning</button>
+            </div>
+        </div>
+
+        <div id="payment-page" class="page">
+            <h2>Välj betalningsmetod</h2>
+            <div class="payment-options">
+                <button class="payment-option" id="card-payment">
+                    <img src="card-icon.png" alt="Kort">
+                    <span>Betala med kort</span>
+                </button>
+                <button class="payment-option" id="swish-payment">
+                    <img src="swish-icon.png" alt="Swish">
+                    <span>Betala med Swish</span>
+                </button>
+            </div>
+            <button id="back-to-scanning" class="secondary-button">Tillbaka</button>
+        </div>
+
+        <div id="card-payment-page" class="page">
+            <h2>Kortbetalning</h2>
+            <div class="payment-instructions">
+                <p>Sätt in ditt kort och följ instruktionerna på kortterminalen</p>
+                <div class="card-animation">
+                    <!-- Animerad bild som visar hur man sätter in kortet -->
+                </div>
+            </div>
+            <div class="payment-status">
+                <p id="payment-message">Väntar på betalning...</p>
+            </div>
+            <button id="cancel-payment" class="secondary-button">Avbryt</button>
+        </div>
+
+        <div id="receipt-page" class="page">
+            <h2>Tack för ditt köp!</h2>
+            <div class="receipt-options">
+                <h3>Vill du ha kvitto?</h3>
+                <button id="print-receipt" class="primary-button">Skriv ut kvitto</button>
+                <button id="email-receipt" class="secondary-button">Skicka kvitto via e-post</button>
+                <button id="no-receipt" class="secondary-button">Inget kvitto</button>
+            </div>
+        </div>
+
+        <div id="email-form-page" class="page">
+            <h2>Ange din e-postadress</h2>
+            <form id="email-form">
+                <input type="email" id="email-input" placeholder="din.epost@exempel.se" required>
+                <button type="submit" class="primary-button">Skicka</button>
+                <button type="button" id="cancel-email" class="secondary-button">Avbryt</button>
+            </form>
+        </div>
+
+        <div id="completion-page" class="page">
+            <h2>Tack för att du handlade hos Willys!</h2>
+            <p>Ta dina varor och ha en trevlig dag!</p>
+            <button id="new-customer" class="primary-button">Ny kund</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Behöver du hjälp? Tryck på hjälpknappen eller kontakta personalen</p>
+        <button id="help-button" class="help-button">Hjälp</button>
+    </footer>
+</body>
+</html> 
