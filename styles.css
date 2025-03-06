@@ -274,4 +274,54 @@ footer {
     .action-buttons button {
         width: 100%;
     }
+}
+
+/* Skanningsmetod-sida */
+.scan-options {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.scan-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.scan-option:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.scan-option img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1.5rem;
+}
+
+.scan-option span {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Responsiv design för skanningsmetod */
+@media (max-width: 768px) {
+    .scan-options {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .scan-option {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 1rem;
+    }
 } 

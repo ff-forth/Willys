@@ -54,7 +54,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Startsida
     document.getElementById('start-button').addEventListener('click', function() {
+        showPage('scan-method-page');
+    });
+    
+    // Skanningsmetod-sida
+    document.getElementById('scanner-option').addEventListener('click', function() {
         showPage('scanning-page');
+        // Här kan du lägga till specifik logik för skanning med apparat
+    });
+    
+    document.getElementById('manual-option').addEventListener('click', function() {
+        showPage('scanning-page');
+        // Här kan du lägga till specifik logik för manuell skanning
     });
     
     // Skanningssida
