@@ -17,24 +17,24 @@
 
     <main id="app">
         <!-- Innehållet kommer att ändras dynamiskt baserat på vilken sida vi är på -->
-        <div id="welcome-screen" class="page active">
+        <div id="scan-method-page" class="page active">
+            <h2>Hej!</h2>
+            <div class="scan-options">
+                <button class="scan-option" id="pre-scanned-option">
+                    <img src="handheld-scanner-icon.png" alt="Självskannat">
+                    <span>Tryck här om du har självskannat</span>
+                </button>
+                <button class="scan-option" id="scan-now-option">
+                    <img src="scanner-icon.png" alt="Skanna nu">
+                    <span>Tryck här för att skanna dina varor nu</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="welcome-screen" class="page">
             <h2>Välkommen till Willys självutcheckning</h2>
             <p>Tryck på skärmen för att börja</p>
             <button id="start-button" class="primary-button">Starta</button>
-        </div>
-
-        <div id="scan-method-page" class="page">
-            <h2>Hur vill du skanna dina varor?</h2>
-            <div class="scan-options">
-                <button class="scan-option" id="scanner-option">
-                    <img src="scanner-icon.png" alt="Skanner">
-                    <span>Skanna med apparat</span>
-                </button>
-                <button class="scan-option" id="manual-option">
-                    <img src="manual-icon.png" alt="Manuell">
-                    <span>Skanna manuellt</span>
-                </button>
-            </div>
         </div>
 
         <div id="scanning-page" class="page">

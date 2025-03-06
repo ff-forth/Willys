@@ -57,15 +57,15 @@ document.addEventListener('DOMContentLoaded', function() {
         showPage('scan-method-page');
     });
     
-    // Skanningsmetod-sida
-    document.getElementById('scanner-option').addEventListener('click', function() {
-        showPage('scanning-page');
-        // Här kan du lägga till specifik logik för skanning med apparat
+    // Skanningsmetod-sida (nu första sidan)
+    document.getElementById('pre-scanned-option').addEventListener('click', function() {
+        // Om användaren redan har självskannat, gå direkt till betalningssidan
+        showPage('payment-page');
     });
     
-    document.getElementById('manual-option').addEventListener('click', function() {
-        showPage('scanning-page');
-        // Här kan du lägga till specifik logik för manuell skanning
+    document.getElementById('scan-now-option').addEventListener('click', function() {
+        // Om användaren vill skanna nu, gå till välkomstsidan först
+        showPage('welcome-screen');
     });
     
     // Skanningssida

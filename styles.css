@@ -280,8 +280,15 @@ footer {
 .scan-options {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
     margin: 3rem 0;
+}
+
+#scan-method-page h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin: 2rem 0;
+    color: #e30613;
 }
 
 .scan-option {
@@ -292,24 +299,27 @@ footer {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 250px;
+    width: 300px;
     transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
 }
 
 .scan-option:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
 }
 
 .scan-option img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 1.5rem;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 2rem;
 }
 
 .scan-option span {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    line-height: 1.4;
 }
 
 /* Responsiv design för skanningsmetod */
