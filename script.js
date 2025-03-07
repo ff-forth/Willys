@@ -326,11 +326,107 @@ document.addEventListener('DOMContentLoaded', function() {
         return prices[itemName] || 0;
     }
     
-    // Händelsehanterare för "Välj varor manuellt"
+    // Uppdatera händelsehanteraren för "Välj varor manuellt"
     document.querySelector('.manual-select-button').addEventListener('click', function() {
-        // Visa popup eller navigera till manuell valsida
-        alert('Funktionen för manuellt val är inte implementerad i denna demo.');
+        // Visa popup med sökfält
+        showManualSearchPopup();
     });
+    
+    // Lägg till funktion för att visa popup med sökfält
+    function showManualSearchPopup() {
+        // Skapa popup-element
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        
+        const popupContent = document.createElement('div');
+        popupContent.className = 'popup-content search-popup';
+        
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        const title = document.createElement('h3');
+        title.textContent = 'Sök vara';
+        
+        const searchForm = document.createElement('form');
+        searchForm.className = 'search-form';
+        searchForm.onsubmit = function(e) {
+            e.preventDefault();
+            const searchInput = document.getElementById('search-input');
+            const searchTerm = searchInput.value.trim();
+            
+            if (searchTerm) {
+                // Simulera sökning och lägg till en produkt
+                addSearchedProduct(searchTerm);
+                document.body.removeChild(popup);
+            }
+        };
+        
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.id = 'search-input';
+        searchInput.placeholder = 'Skriv varunamn...';
+        searchInput.autocomplete = 'off';
+        
+        const searchButton = document.createElement('button');
+        searchButton.type = 'submit';
+        searchButton.className = 'primary-button';
+        searchButton.textContent = 'Sök';
+        
+        const suggestedItems = document.createElement('div');
+        suggestedItems.className = 'suggested-items';
+        
+        // Lägg till några föreslagna varor
+        const suggestions = [
+            { name: 'Äpple Royal Gala', price: 5.90 },
+            { name: 'Banan Eko', price: 24.90 },
+            { name: 'Gurka', price: 12.90 },
+            { name: 'Tomat Kvist', price: 29.90 },
+            { name: 'Lök Gul', price: 14.90 }
+        ];
+        
+        suggestions.forEach(item => {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.className = 'suggestion-item';
+            suggestionItem.innerHTML = `
+                <span>${item.name}</span>
+                <span>${item.price.toFixed(2)} kr</span>
+            `;
+            suggestionItem.onclick = function() {
+                cart.push(item);
+                updateCart();
+                document.body.removeChild(popup);
+            };
+            suggestedItems.appendChild(suggestionItem);
+        });
+        
+        searchForm.appendChild(searchInput);
+        searchForm.appendChild(searchButton);
+        
+        popupContent.appendChild(closeBtn);
+        popupContent.appendChild(title);
+        popupContent.appendChild(searchForm);
+        popupContent.appendChild(suggestedItems);
+        popup.appendChild(popupContent);
+        
+        document.body.appendChild(popup);
+        
+        // Fokusera på sökfältet
+        setTimeout(() => {
+            searchInput.focus();
+        }, 100);
+    }
+
+    // Funktion för att lägga till en sökt produkt
+    function addSearchedProduct(searchTerm) {
+        // Simulera att vi hittar en produkt baserat på söktermen
+        const price = (Math.random() * 50 + 10).toFixed(2);
+        cart.push({ name: searchTerm, price: parseFloat(price) });
+        updateCart();
+    }
     
     // Händelsehanterare för "Egen kasse"
     document.querySelector('.own-bag-button').addEventListener('click', function() {
