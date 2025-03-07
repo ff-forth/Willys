@@ -1,0 +1,114 @@
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960722953_C1C0_s01 
+Vaniljmunk
+Dafgårds 63g
+9,90 kr/st
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960855101_C1C0_s01 
+Vaniljhjärta
+Dafgårds 57g
+9,90 kr/st
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960788058_C1N0_s01 
+Croissant
+Dafgårds 55g
+9,90 kr/st
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960788096_C1C0_s01 
+Pain Au Chocolat
+Dafgårds 70g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960773023_S01 
+Chokladmunk Lyx
+Dafgårds 72g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960019497_C1C1_s01 
+Cinelle Vanilj
+Dafgårds 95g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960722960_C1C0_s01 
+Äppelmunk
+Dafgårds 63g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960773016_C1C1_s01 
+Hallonmunk Lyx
+Dafgårds 72g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960781059_C1C1_s01 
+Lyxmunk Salted Caramel
+Dafgårds 72g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960785057_C1C1_s01 
+Solbulle
+Dafgårds 80g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07310960788416_C1C0_s01 
+Croissant Choklad
+Dafgårds 90g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07350031139204_C1C1_s01 
+Donut Choklad
+La Lorraine 56g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07311141390640_C1C0_s01 
+Wienerbröd Vanilj
+Finax Bakery 80g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07311141390602_C1C0_s01 
+Kanelsnäcka Kanelbulle
+Finax Bakery 100g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07350031139228_C1C1_s01 
+Donut Jordgubb
+La Lorraine 56g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07311141390626_C1C0_s01 
+Toscasnäcka
+Finax Bakery 95g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07350031131420_C1C1_s01 
+Donut Vit Choklad
+La Lorraine 56g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07315060094313_C1R0_s01 
+Maple Pecan
+Bonjour 85g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07350031139235_C1C1_s01 
+Donut Socker
+La Lorraine 50g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07350031131451_C1C1_s01 
+Donut Strössel
+La Lorraine 57g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07311141390633_C1C0_s01 
+Vaniljsnäcka
+Finax Bakery 100g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07350031139181_C1C1_s01 
+Crushed Candy Donut
+La Lorraine 56g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07315065947690_C1L1_s01 
+Estellefläta
+Bonjour 85g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07071864011481_C1N0_s01 
+Muffin Double Chocolate
+Aunt Mabels 95g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07311141390657_C1C0_s01 
+Wienerbröd Vanilj Hallon
+Finax Bakery 80g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07311141390619_C1C0_s01 
+Kardemumma- Snäcka
+Finax Bakery 100g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07350031132595_C1C1_s01 
+Donut Rosa med Strössel
+La Lorraine 56g
+
+@https://assets.axfood.se/image/upload/f_auto,t_200/07350031132601_C1C1_s01 
+Donut Choklad med Strössel
+La Lorraine 56g

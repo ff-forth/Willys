@@ -538,7 +538,7 @@ document.addEventListener('DOMContentLoaded', function() {
             { name: 'Kardemummabulle', price: 15.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_186594/cf_259/kardemummabullar.jpg' },
             { name: 'Wienerbröd', price: 18.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222227/cf_259/wienerbrod.jpg' },
             { name: 'Chokladmunk', price: 12.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222226/cf_259/chokladmunk.jpg' },
-            { name: 'Vaniljmunk', price: 12.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222225/cf_259/vaniljmunk.jpg' },
+            { name: 'Vaniljmunk', price: 12.90, image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960722953_C1C0_s01' },
             { name: 'Sockermunk', price: 10.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222224/cf_259/sockermunk.jpg' },
             { name: 'Hallongrottor 4-pack', price: 25.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222223/cf_259/hallongrottor.jpg' },
             { name: 'Mazarin', price: 14.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222222/cf_259/mazarin.jpg' }
