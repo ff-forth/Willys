@@ -234,9 +234,22 @@ button:active {
     width: 200px;
     height: 150px;
     margin: 2rem auto;
-    background-color: #eee;
-    border-radius: 8px;
-    /* Här kan du lägga till en bakgrundsbild eller animation */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-animation-img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 .payment-status {
