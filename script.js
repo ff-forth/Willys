@@ -37,14 +37,30 @@ document.addEventListener('DOMContentLoaded', function() {
         productList.innerHTML = '';
         total = 0;
         
+        // Gruppera produkter efter namn
+        const groupedProducts = {};
+        
         cart.forEach(item => {
+            if (!groupedProducts[item.name]) {
+                groupedProducts[item.name] = {
+                    name: item.name,
+                    price: item.price,
+                    quantity: 1
+                };
+            } else {
+                groupedProducts[item.name].quantity += 1;
+            }
+            total += item.price;
+        });
+        
+        // Visa grupperade produkter
+        Object.values(groupedProducts).forEach(item => {
             const li = document.createElement('li');
             li.innerHTML = `
-                <span>${item.name}</span>
-                <span>${item.price.toFixed(2)} kr</span>
+                <span>${item.name} ${item.quantity > 1 ? `(${item.quantity} st)` : ''}</span>
+                <span>${(item.price * item.quantity).toFixed(2)} kr</span>
             `;
             productList.appendChild(li);
-            total += item.price;
         });
         
         totalElement.textContent = total.toFixed(2);
