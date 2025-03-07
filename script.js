@@ -7,6 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
             page.classList.remove('active');
         });
         document.getElementById(pageId).classList.add('active');
+        
+        // Hantera footer-visning
+        if (pageId === 'scan-method-page') {
+            document.getElementById('main-footer').style.display = 'none';
+        } else {
+            document.getElementById('main-footer').style.display = 'flex';
+        }
     }
     
     // Produktdata (simulerad)
@@ -52,20 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Händelsehanterare för knappar
     
-    // Startsida
-    document.getElementById('start-button').addEventListener('click', function() {
-        showPage('scan-method-page');
-    });
-    
     // Skanningsmetod-sida (nu första sidan)
     document.getElementById('pre-scanned-option').addEventListener('click', function() {
-        // Om användaren redan har självskannat, gå direkt till betalningssidan
-        showPage('payment-page');
+        // Visa popup om att funktionen inte är tillgänglig
+        showUnavailableFeaturePopup();
     });
     
     document.getElementById('scan-now-option').addEventListener('click', function() {
-        // Om användaren vill skanna nu, gå till välkomstsidan först
-        showPage('welcome-screen');
+        // Visa popup om att blippa kortet först
+        showBlipCardPopup();
     });
     
     // Skanningssida
@@ -75,7 +77,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.getElementById('proceed-to-payment').addEventListener('click', function() {
         if (cart.length > 0) {
-            showPage('payment-page');
+            // Gå direkt till kortbetalning istället för betalningsmetodssidan
+            showPage('card-payment-page');
+            simulateCardPayment();
         } else {
             alert('Vänligen skanna minst en vara innan du går till betalning.');
         }
@@ -148,11 +152,97 @@ document.addEventListener('DOMContentLoaded', function() {
         // Återställ kundvagn och visa startsidan
         cart = [];
         updateCart();
-        showPage('welcome-screen');
+        showPage('scan-method-page');
     });
     
     // Hjälpknapp
     document.getElementById('help-button').addEventListener('click', function() {
         alert('Personal kommer att hjälpa dig inom kort.');
     });
+
+    // Funktion för att visa popup
+    function showUnavailableFeaturePopup() {
+        // Skapa popup-element
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        
+        const popupContent = document.createElement('div');
+        popupContent.className = 'popup-content';
+        
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        const message = document.createElement('p');
+        message.textContent = 'Tyvärr är denna funktion inte tillgänglig för tillfället.';
+        
+        const okButton = document.createElement('button');
+        okButton.className = 'primary-button';
+        okButton.textContent = 'OK';
+        okButton.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        popupContent.appendChild(closeBtn);
+        popupContent.appendChild(message);
+        popupContent.appendChild(okButton);
+        popup.appendChild(popupContent);
+        
+        document.body.appendChild(popup);
+    }
+
+    // Funktion för att visa popup om att blippa kortet
+    function showBlipCardPopup() {
+        // Skapa popup-element
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        
+        const popupContent = document.createElement('div');
+        popupContent.className = 'popup-content';
+        
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        const message = document.createElement('p');
+        message.textContent = 'Vänligen blippa ditt kort i kortterminalen innan du börjar skanna dina varor.';
+        
+        const okButton = document.createElement('button');
+        okButton.className = 'primary-button';
+        okButton.textContent = 'Jag har blippat mitt kort';
+        okButton.onclick = function() {
+            document.body.removeChild(popup);
+            showPage('scanning-page');
+        };
+        
+        const cancelButton = document.createElement('button');
+        cancelButton.className = 'secondary-button';
+        cancelButton.textContent = 'Avbryt';
+        cancelButton.style.marginLeft = '10px';
+        cancelButton.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        popupContent.appendChild(closeBtn);
+        popupContent.appendChild(message);
+        
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.justifyContent = 'center';
+        buttonContainer.style.gap = '10px';
+        
+        buttonContainer.appendChild(okButton);
+        buttonContainer.appendChild(cancelButton);
+        
+        popupContent.appendChild(buttonContainer);
+        popup.appendChild(popupContent);
+        
+        document.body.appendChild(popup);
+    }
 }); 

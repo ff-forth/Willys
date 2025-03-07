@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Noticia Text', serif;
 }
 
 body {
@@ -15,8 +15,8 @@ body {
 }
 
 /* Header-stilar */
-header {
-    background-color: #e30613; /* Willys röda färg */
+/* header {
+    background-color: #e30613;
     color: white;
     padding: 1rem;
     display: flex;
@@ -30,7 +30,7 @@ header {
 
 .logo {
     height: 40px;
-}
+} */
 
 /* Huvudinnehåll */
 main {
@@ -280,46 +280,47 @@ footer {
 .scan-options {
     display: flex;
     justify-content: center;
-    gap: 3rem;
-    margin: 3rem 0;
+    gap: 2rem;
+    margin: 2rem 0;
 }
 
 #scan-method-page h2 {
     text-align: center;
-    font-size: 3rem;
+    font-size: 7rem;
     margin: 2rem 0;
-    color: #e30613;
+    color: white;
+    margin-top: 50px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .scan-option {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3rem;
-    background-color: white;
+    background-color: transparent;
+    border: none;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: none;
+    width: 250px;
+    transition: transform 0.2s;
     text-align: center;
 }
 
-.scan-option:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-}
-
 .scan-option img {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 2rem;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1.5rem;
+    filter: brightness(0) invert(1);
 }
 
 .scan-option span {
     font-weight: bold;
-    font-size: 1.4rem;
-    line-height: 1.4;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Responsiv design för skanningsmetod */
@@ -334,4 +335,114 @@ footer {
         max-width: 300px;
         margin-bottom: 1rem;
     }
-} 
+}
+
+/* Lägg till dessa stilar för den nya logotypen på startsidan */
+.main-logo-container {
+    text-align: center;
+    margin: 2rem auto;
+}
+
+.main-logo {
+    max-width: 250px;
+    height: auto;
+}
+
+/* Du kan också använda de specifika klasserna för olika textstilar */
+.noticia-text-regular {
+  font-family: "Noticia Text", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.noticia-text-bold {
+  font-family: "Noticia Text", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.noticia-text-regular-italic {
+  font-family: "Noticia Text", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.noticia-text-bold-italic {
+  font-family: "Noticia Text", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Dölj footer på första sidan */
+.hidden-on-first-page {
+    display: none;
+}
+
+/* Visa footer på andra sidor */
+body:not(.first-page) .hidden-on-first-page {
+    display: flex;
+}
+
+/* Röd cirkel bakgrund */
+.red-circle-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+}
+
+.red-circle {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background-color: #e30613;
+    border-radius: 50%;
+    top: -1px;
+    z-index: -1;
+}
+
+/* Uppdatera text och knappar för att passa med den röda cirkeln */
+#scan-method-page h2 {
+    color: white;
+    margin-top: 50px;
+}
+
+/* Popup-stil */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.popup-content p {
+    margin: 1rem 0 2rem;
+    font-size: 1.2rem;
+}
+

@@ -4,37 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Willys Självutcheckning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noticia+Text:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="logo-container">
-            <img src="willys-logo.png" alt="Willys Logo" class="logo">
-        </div>
-        <h1>Självutcheckning</h1>
-    </header>
-
     <main id="app">
         <!-- Innehållet kommer att ändras dynamiskt baserat på vilken sida vi är på -->
         <div id="scan-method-page" class="page active">
-            <h2>Hej!</h2>
-            <div class="scan-options">
-                <button class="scan-option" id="pre-scanned-option">
-                    <img src="handheld-scanner-icon.png" alt="Självskannat">
-                    <span>Tryck här om du har självskannat</span>
-                </button>
-                <button class="scan-option" id="scan-now-option">
-                    <img src="scanner-icon.png" alt="Skanna nu">
-                    <span>Tryck här för att skanna dina varor nu</span>
-                </button>
+            <div class="main-logo-container">
+                <img src="https://jamformatkasse.se/wp-content/uploads/2020/05/willys-logo.png" alt="Willys Logo" class="main-logo">
             </div>
-        </div>
-
-        <div id="welcome-screen" class="page">
-            <h2>Välkommen till Willys självutcheckning</h2>
-            <p>Tryck på skärmen för att börja</p>
-            <button id="start-button" class="primary-button">Starta</button>
+            <div class="red-circle-container">
+                <div class="red-circle"></div>
+                <h2 class="noticia-text-bold">Hej!</h2>
+                <div class="scan-options">
+                    <button class="scan-option" id="pre-scanned-option">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3081/3081951.png" alt="Kundvagn">
+                        <span>Tryck här om du har självskannat</span>
+                    </button>
+                    <button class="scan-option" id="scan-now-option">
+                        <img src="https://cdn-icons-png.flaticon.com/128/859/859392.png" alt="Kundvagn">
+                        <span>Tryck här för att skanna dina varor nu</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
         <div id="scanning-page" class="page">
@@ -50,7 +47,7 @@
             </div>
             <div class="action-buttons">
                 <button id="scan-button" class="primary-button">Skanna vara</button>
-                <button id="proceed-to-payment" class="secondary-button">Gå till betalning</button>
+                <button id="proceed-to-payment" class="secondary-button">Betala med kort</button>
             </div>
         </div>
 
@@ -109,7 +106,7 @@
         </div>
     </main>
 
-    <footer>
+    <footer id="main-footer" class="hidden-on-first-page">
         <p>Behöver du hjälp? Tryck på hjälpknappen eller kontakta personalen</p>
         <button id="help-button" class="help-button">Hjälp</button>
     </footer>
