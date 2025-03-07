@@ -34,7 +34,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const productList = document.getElementById('product-items');
         const totalElement = document.getElementById('total-amount');
         
+        // Rensa produktlistan
         productList.innerHTML = '';
+        
+        // Ta bort rubrikrad om den finns
+        const productListContainer = productList.parentElement;
+        const headerRow = productListContainer.querySelector('.product-header');
+        if (headerRow) {
+            productListContainer.removeChild(headerRow);
+        }
+        
         total = 0;
         
         // Gruppera produkter efter namn
@@ -57,7 +66,9 @@ document.addEventListener('DOMContentLoaded', function() {
         Object.values(groupedProducts).forEach(item => {
             const li = document.createElement('li');
             li.innerHTML = `
-                <span>${item.name} ${item.quantity > 1 ? `(${item.quantity} st)` : ''}</span>
+                <span>${item.name}</span>
+                <span>${item.quantity} st</span>
+                <span>${item.price.toFixed(2)} kr</span>
                 <span>${(item.price * item.quantity).toFixed(2)} kr</span>
             `;
             productList.appendChild(li);
