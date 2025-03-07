@@ -68,13 +68,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // Hitta h3-rubriken i produktlistan
         const productListTitle = document.querySelector('.product-list h3');
         
+        // Hitta alla förekomster av "Scanna första varan" i hela dokumentet
+        const scanningInstructions = document.querySelectorAll('.scanning-instructions');
+        
         // Om kundvagnen är tom
         if (cart.length === 0) {
-            // Visa bara rubriken "Skanna första varan"
+            // Visa bara rubriken "Scanna första varan"
             if (productListTitle) {
                 productListTitle.style.display = 'block';
                 productListTitle.style.margin = '3rem 0';
             }
+            
+            // Visa alla instruktioner
+            scanningInstructions.forEach(instruction => {
+                instruction.style.display = 'block';
+            });
             
             // Dölj produktlistan
             productList.style.display = 'none';
@@ -83,6 +91,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (productListTitle) {
                 productListTitle.style.display = 'none';
             }
+            
+            // Dölj alla instruktioner
+            scanningInstructions.forEach(instruction => {
+                instruction.style.display = 'none';
+            });
             
             // Visa produktlistan
             productList.style.display = 'block';
