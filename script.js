@@ -30,6 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let cart = [];
     let total = 0;
     
+    // Uppdatera kundvagnen direkt när sidan laddas
+    updateCart();
+    
     function updateCart() {
         const productList = document.getElementById('product-items');
         const totalElement = document.getElementById('total-amount');
@@ -62,17 +65,40 @@ document.addEventListener('DOMContentLoaded', function() {
             total += item.price;
         });
         
-        // Visa grupperade produkter
-        Object.values(groupedProducts).forEach(item => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <span>${item.name}</span>
-                <span>${item.quantity} st</span>
-                <span>${item.price.toFixed(2)} kr</span>
-                <span>${(item.price * item.quantity).toFixed(2)} kr</span>
-            `;
-            productList.appendChild(li);
-        });
+        // Hitta h3-rubriken i produktlistan
+        const productListTitle = document.querySelector('.product-list h3');
+        
+        // Om kundvagnen är tom
+        if (cart.length === 0) {
+            // Visa bara rubriken "Skanna första varan"
+            if (productListTitle) {
+                productListTitle.style.display = 'block';
+                productListTitle.style.margin = '3rem 0';
+            }
+            
+            // Dölj produktlistan
+            productList.style.display = 'none';
+        } else {
+            // Dölj rubriken när det finns varor
+            if (productListTitle) {
+                productListTitle.style.display = 'none';
+            }
+            
+            // Visa produktlistan
+            productList.style.display = 'block';
+            
+            // Visa grupperade produkter
+            Object.values(groupedProducts).forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${item.name}</span>
+                    <span>${item.quantity} st</span>
+                    <span>${item.price.toFixed(2)} kr</span>
+                    <span>${(item.price * item.quantity).toFixed(2)} kr</span>
+                `;
+                productList.appendChild(li);
+            });
+        }
         
         totalElement.textContent = total.toFixed(2);
     }
@@ -703,5 +729,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         return null;
+    }
+
+    // Alternativ metod för att hitta instruktionselementet
+    const scanningPage = document.getElementById('scanning-page');
+    if (scanningPage) {
+        const instructionElement = scanningPage.querySelector('p:contains("Scanna")');
+        if (instructionElement && cart.length > 0) {
+            instructionElement.style.display = 'none';
+        }
     }
 }); 
