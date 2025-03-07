@@ -70,18 +70,27 @@ document.addEventListener('DOMContentLoaded', function() {
         showBlipCardPopup();
     });
     
-    // Skanningssida
-    document.getElementById('scan-button').addEventListener('click', function() {
-        addRandomProduct();
+    // Skanningssida - lägg till händelsehanterare för scan-button
+    // Eftersom vi inte längre har en scan-button, kan vi lägga till en simulerad skanning
+    // när användaren klickar på produktlistan
+    document.querySelector('.product-list').addEventListener('click', function(e) {
+        // Kontrollera om vi klickade på produktlistan och inte på en produkt
+        if (e.target.classList.contains('product-list') || 
+            e.target.tagName === 'H3' || 
+            e.target === document.getElementById('product-items')) {
+            addRandomProduct();
+        }
     });
     
+    // Uppdatera händelsehanteraren för betalningsknappen
     document.getElementById('proceed-to-payment').addEventListener('click', function() {
         if (cart.length > 0) {
             // Gå direkt till kortbetalning istället för betalningsmetodssidan
             showPage('card-payment-page');
             simulateCardPayment();
         } else {
-            alert('Vänligen skanna minst en vara innan du går till betalning.');
+            // Visa popup med meddelande om att kundvagnen är tom
+            showEmptyCartPopup();
         }
     });
     
@@ -291,4 +300,76 @@ document.addEventListener('DOMContentLoaded', function() {
     // Uppdatera klockan varje minut
     setInterval(updateClock, 60000);
     updateClock(); // Kör direkt vid sidladdning
+
+    // Händelsehanterare för snabbval av varor
+    const quickItems = document.querySelectorAll('.quick-item');
+    quickItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const itemName = this.querySelector('.item-name').textContent;
+            const itemDesc = this.querySelector('.item-desc').textContent;
+            const fullName = itemName + (itemDesc ? ' ' + itemDesc : '');
+            
+            // Lägg till varan i kundvagnen
+            const price = getQuickItemPrice(itemName);
+            cart.push({ name: fullName, price: price });
+            updateCart();
+        });
+    });
+    
+    // Funktion för att hämta pris för snabbval
+    function getQuickItemPrice(itemName) {
+        const prices = {
+            'plastkasse': 7.00,
+            'papperskasse': 5.00,
+            'telefonkort': 100.00
+        };
+        return prices[itemName] || 0;
+    }
+    
+    // Händelsehanterare för "Välj varor manuellt"
+    document.querySelector('.manual-select-button').addEventListener('click', function() {
+        // Visa popup eller navigera till manuell valsida
+        alert('Funktionen för manuellt val är inte implementerad i denna demo.');
+    });
+    
+    // Händelsehanterare för "Egen kasse"
+    document.querySelector('.own-bag-button').addEventListener('click', function() {
+        // Lägg till egen kasse i kundvagnen (pris 0)
+        cart.push({ name: 'Egen kasse', price: 0 });
+        updateCart();
+    });
+
+    // Lägg till funktion för att visa popup när kundvagnen är tom
+    function showEmptyCartPopup() {
+        // Skapa popup-element
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        
+        const popupContent = document.createElement('div');
+        popupContent.className = 'popup-content';
+        
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        const message = document.createElement('p');
+        message.textContent = 'Vänligen skanna minst en vara innan du går till betalning.';
+        
+        const okButton = document.createElement('button');
+        okButton.className = 'primary-button';
+        okButton.textContent = 'OK';
+        okButton.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        popupContent.appendChild(closeBtn);
+        popupContent.appendChild(message);
+        popupContent.appendChild(okButton);
+        popup.appendChild(popupContent);
+        
+        document.body.appendChild(popup);
+    }
 }); 

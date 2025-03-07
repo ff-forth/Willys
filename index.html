@@ -49,24 +49,48 @@
 
         <div id="scanning-page" class="page">
             <div class="scanning-container">
-                <div class="product-list">
-                    <h2>Skanna dina varor</h2>
-                    <div class="scanning-instructions">
-                        <p>Håll streckkoden framför skannern för att registrera varan.</p>
-                        <div class="scanner-animation">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1553/1553930.png" alt="Skanner" class="scanner-icon">
+                <div class="product-list-container">
+                    <div class="product-list-left">
+                        <h2>Skanna eller välj varor manuellt.</h2>
+                        
+                        <button class="manual-select-button">
+                            Välj varor manuellt
+                        </button>
+                        
+                        <div class="quick-items">
+                            <button class="quick-item">
+                                <span class="item-name">plastkasse</span>
+                                <span class="item-desc">vit</span>
+                            </button>
+                            <button class="quick-item">
+                                <span class="item-name">papperskasse</span>
+                                <span class="item-desc">brunt 32L</span>
+                            </button>
+                            <button class="quick-item">
+                                <span class="item-name">telefonkort</span>
+                                <span class="item-desc"></span>
+                            </button>
                         </div>
+                        
+                        <button class="own-bag-button">
+                            Egen kasse
+                        </button>
                     </div>
-                    <h3>Dina varor:</h3>
-                    <ul id="product-items">
-                        <!-- Produkter kommer att läggas till här dynamiskt -->
-                    </ul>
-                    <div class="total-section">
-                        <p>Totalt: <span id="total-amount">0</span> kr</p>
-                    </div>
-                    <div class="action-buttons">
-                        <button id="scan-button" class="primary-button">Skanna vara</button>
-                        <button id="proceed-to-payment" class="secondary-button">Betala med kort</button>
+                    
+                    <div class="product-list-right">
+                        <div class="product-list">
+                            <h3>Scanna första varan</h3>
+                            <ul id="product-items">
+                                <!-- Produkter kommer att läggas till här dynamiskt -->
+                            </ul>
+                            <div class="total-section">
+                                <p>Att betala: <span id="total-amount">0.00</span> kr</p>
+                            </div>
+                        </div>
+                        
+                        <button id="proceed-to-payment" class="payment-button">
+                            till betalning -->
+                        </button>
                     </div>
                 </div>
             </div>
