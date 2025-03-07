@@ -534,14 +534,76 @@ document.addEventListener('DOMContentLoaded', function() {
     // Produktdata per kategori med bildlänkar - flytta till global scope
     const categoryProducts = {
         'Fikabröd': [
-            { name: 'Kanelbulle', price: 15.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_186593/cf_259/kanelbullar.jpg' },
-            { name: 'Kardemummabulle', price: 15.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_186594/cf_259/kardemummabullar.jpg' },
-            { name: 'Wienerbröd', price: 18.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222227/cf_259/wienerbrod.jpg' },
-            { name: 'Chokladmunk', price: 12.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222226/cf_259/chokladmunk.jpg' },
-            { name: 'Vaniljmunk', price: 12.90, image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960722953_C1C0_s01' },
-            { name: 'Sockermunk', price: 10.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222224/cf_259/sockermunk.jpg' },
-            { name: 'Hallongrottor 4-pack', price: 25.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222223/cf_259/hallongrottor.jpg' },
-            { name: 'Mazarin', price: 14.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222222/cf_259/mazarin.jpg' }
+            { 
+                name: 'Vaniljmunk', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960722953_C1C0_s01'
+            },
+            { 
+                name: 'Vaniljhjärta', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960855101_C1C0_s01'
+            },
+            { 
+                name: 'Croissant', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960788058_C1N0_s01'
+            },
+            { 
+                name: 'Pain Au Chocolat', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960788096_C1C0_s01'
+            },
+            { 
+                name: 'Chokladmunk Lyx', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960773023_S01'
+            },
+            { 
+                name: 'Cinelle Vanilj', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960019497_C1C1_s01'
+            },
+            { 
+                name: 'Äppelmunk', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960722960_C1C0_s01'
+            },
+            { 
+                name: 'Hallonmunk Lyx', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960773016_C1C1_s01'
+            },
+            { 
+                name: 'Lyxmunk Salted Caramel', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960781059_C1C1_s01'
+            },
+            { 
+                name: 'Solbulle', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960785057_C1C1_s01'
+            },
+            { 
+                name: 'Croissant Choklad', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960788416_C1C0_s01'
+            },
+            { 
+                name: 'Donut Choklad', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07350031139204_C1C1_s01'
+            },
+            { 
+                name: 'Wienerbröd Vanilj', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07311141390640_C1C0_s01'
+            },
+            { 
+                name: 'Kanelsnäcka Kanelbulle', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07311141390602_C1C0_s01'
+            }
         ],
         'Bröd': [
             { name: 'Rågbröd', price: 29.90 },
@@ -593,7 +655,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
     
-    // Uppdatera showCategoryProducts-funktionen för att använda den globala categoryProducts
+    // Uppdatera showCategoryProducts-funktionen utan beskrivning
     function showCategoryProducts(category, container) {
         // Rensa befintliga produkter
         container.innerHTML = '';
