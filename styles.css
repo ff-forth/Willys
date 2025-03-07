@@ -726,9 +726,19 @@ body:not(.first-page) .hidden-on-first-page {
     color: #333;
 }
 
-/* Stil för sökpopup */
-.search-popup {
-    max-width: 500px;
+/* Uppdatera stil för sökpopup */
+.search-popup-large {
+    max-width: 80%;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.search-popup-large h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .search-form {
@@ -739,31 +749,147 @@ body:not(.first-page) .hidden-on-first-page {
 
 .search-form input {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    font-size: 1rem;
+    font-size: 1.1rem;
+}
+
+.category-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 1.5rem 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.category-btn {
+    padding: 8px 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.category-btn:hover {
+    background-color: #e4e4e4;
+}
+
+.category-btn.active {
+    background-color: #e30613;
+    color: white;
+    border-color: #e30613;
 }
 
 .suggested-items {
+    flex: 1;
+    overflow-y: auto;
     margin-top: 1rem;
-    border-top: 1px solid #eee;
-    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
 }
 
 .suggestion-item {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
+    padding: 0;
+    border: 1px solid #eee;
+    border-radius: 8px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: white;
+}
+
+.product-image {
+    width: 100%;
+    height: 150px;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+}
+
+.product-image img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+}
+
+.product-name {
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+}
+
+.product-quantity {
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.quantity-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.quantity-btn:hover {
+    background-color: #e4e4e4;
+}
+
+.quantity-value {
+    width: 50px;
+    height: 36px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+/* Stil för färdig-knapp i sökpopupen */
+.finish-button-container {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+}
+
+.finish-button {
+    background-color: #e30613;
+    color: white;
+    font-weight: bold;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.suggestion-item:hover {
-    background-color: #f5f5f5;
+.finish-button:hover {
+    background-color: #c70512;
 }
 
-.suggestion-item:last-child {
-    border-bottom: none;
-}
+
 

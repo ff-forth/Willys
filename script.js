@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
         popup.className = 'popup';
         
         const popupContent = document.createElement('div');
-        popupContent.className = 'popup-content search-popup';
+        popupContent.className = 'popup-content search-popup-large';
         
         const closeBtn = document.createElement('span');
         closeBtn.className = 'close-btn';
@@ -376,32 +376,72 @@ document.addEventListener('DOMContentLoaded', function() {
         searchButton.className = 'primary-button';
         searchButton.textContent = 'Sök';
         
+        // Skapa kategorinavigering
+        const categoryNav = document.createElement('div');
+        categoryNav.className = 'category-nav';
+        
+        const categories = [
+            'Fikabröd', 'Bröd', 'Frukt', 'Grönsaker', 'Drycker', 
+            'Färdigmat', 'Godis', 'Djupfrys', 'Övrig'
+        ];
+        
+        categories.forEach(category => {
+            const categoryBtn = document.createElement('button');
+            categoryBtn.className = 'category-btn';
+            categoryBtn.textContent = category;
+            categoryBtn.onclick = function() {
+                // Visa produkter för den valda kategorin
+                showCategoryProducts(category, suggestedItems);
+                // Markera den aktiva kategorin
+                document.querySelectorAll('.category-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                categoryBtn.classList.add('active');
+            };
+            categoryNav.appendChild(categoryBtn);
+        });
+        
         const suggestedItems = document.createElement('div');
         suggestedItems.className = 'suggested-items';
         
-        // Lägg till några föreslagna varor
-        const suggestions = [
-            { name: 'Äpple Royal Gala', price: 5.90 },
-            { name: 'Banan Eko', price: 24.90 },
-            { name: 'Gurka', price: 12.90 },
-            { name: 'Tomat Kvist', price: 29.90 },
-            { name: 'Lök Gul', price: 14.90 }
-        ];
+        // Lägg till en container för färdig-knappen
+        const finishButtonContainer = document.createElement('div');
+        finishButtonContainer.className = 'finish-button-container';
         
-        suggestions.forEach(item => {
-            const suggestionItem = document.createElement('div');
-            suggestionItem.className = 'suggestion-item';
-            suggestionItem.innerHTML = `
-                <span>${item.name}</span>
-                <span>${item.price.toFixed(2)} kr</span>
-            `;
-            suggestionItem.onclick = function() {
-                cart.push(item);
-                updateCart();
-                document.body.removeChild(popup);
-            };
-            suggestedItems.appendChild(suggestionItem);
-        });
+        // Skapa färdig-knappen
+        const finishButton = document.createElement('button');
+        finishButton.className = 'finish-button';
+        finishButton.textContent = 'Färdig';
+        finishButton.onclick = function() {
+            // Samla in alla produkter med antal > 0
+            const selectedProducts = [];
+            const quantityInputs = document.querySelectorAll('.quantity-value');
+            
+            quantityInputs.forEach(input => {
+                const quantity = parseInt(input.value);
+                if (quantity > 0) {
+                    const productItem = input.closest('.suggestion-item');
+                    const productName = productItem.querySelector('.product-name').textContent;
+                    const productData = findProductByName(productName);
+                    
+                    if (productData) {
+                        // Lägg till produkten i kundvagnen med rätt antal
+                        for (let i = 0; i < quantity; i++) {
+                            cart.push(productData);
+                        }
+                    }
+                }
+            });
+            
+            // Uppdatera kundvagnen och stäng popupen
+            updateCart();
+            document.body.removeChild(popup);
+        };
+        
+        finishButtonContainer.appendChild(finishButton);
+        
+        // Visa fikabröd som standard
+        showCategoryProducts('Fikabröd', suggestedItems);
         
         searchForm.appendChild(searchInput);
         searchForm.appendChild(searchButton);
@@ -409,15 +449,170 @@ document.addEventListener('DOMContentLoaded', function() {
         popupContent.appendChild(closeBtn);
         popupContent.appendChild(title);
         popupContent.appendChild(searchForm);
+        popupContent.appendChild(categoryNav);
         popupContent.appendChild(suggestedItems);
+        popupContent.appendChild(finishButtonContainer);
         popup.appendChild(popupContent);
         
         document.body.appendChild(popup);
+        
+        // Markera Fikabröd som aktiv kategori
+        document.querySelectorAll('.category-btn')[0].classList.add('active');
         
         // Fokusera på sökfältet
         setTimeout(() => {
             searchInput.focus();
         }, 100);
+    }
+
+    // Produktdata per kategori med bildlänkar - flytta till global scope
+    const categoryProducts = {
+        'Fikabröd': [
+            { name: 'Kanelbulle', price: 15.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_186593/cf_259/kanelbullar.jpg' },
+            { name: 'Kardemummabulle', price: 15.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_186594/cf_259/kardemummabullar.jpg' },
+            { name: 'Wienerbröd', price: 18.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222227/cf_259/wienerbrod.jpg' },
+            { name: 'Chokladmunk', price: 12.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222226/cf_259/chokladmunk.jpg' },
+            { name: 'Vaniljmunk', price: 12.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222225/cf_259/vaniljmunk.jpg' },
+            { name: 'Sockermunk', price: 10.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222224/cf_259/sockermunk.jpg' },
+            { name: 'Hallongrottor 4-pack', price: 25.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222223/cf_259/hallongrottor.jpg' },
+            { name: 'Mazarin', price: 14.90, image: 'https://assets.icanet.se/e_sharpen:80,q_auto,dpr_1.25,w_718,h_718,c_lfill/imagevaultfiles/id_222222/cf_259/mazarin.jpg' }
+        ],
+        'Bröd': [
+            { name: 'Rågbröd', price: 29.90 },
+            { name: 'Vitt bröd', price: 24.90 },
+            { name: 'Korvbröd 8-pack', price: 19.90 },
+            { name: 'Hamburgerbröd 4-pack', price: 22.90 }
+        ],
+        'Frukt': [
+            { name: 'Äpple Royal Gala', price: 5.90 },
+            { name: 'Banan Eko', price: 24.90 },
+            { name: 'Apelsin', price: 6.90 },
+            { name: 'Päron', price: 7.90 }
+        ],
+        'Grönsaker': [
+            { name: 'Gurka', price: 12.90 },
+            { name: 'Tomat Kvist', price: 29.90 },
+            { name: 'Lök Gul', price: 14.90 },
+            { name: 'Paprika Röd', price: 19.90 }
+        ],
+        'Drycker': [
+            { name: 'Mjölk 1L', price: 15.90 },
+            { name: 'Juice Apelsin 1L', price: 22.90 },
+            { name: 'Läsk Cola 1.5L', price: 19.90 },
+            { name: 'Vatten Kolsyrad 1.5L', price: 12.90 }
+        ],
+        'Färdigmat': [
+            { name: 'Lasagne 400g', price: 49.90 },
+            { name: 'Pizza Margherita', price: 39.90 },
+            { name: 'Sallad Kyckling', price: 59.90 },
+            { name: 'Paj Ost & Skinka', price: 45.90 }
+        ],
+        'Godis': [
+            { name: 'Choklad Mjölk 100g', price: 19.90 },
+            { name: 'Godispåse 200g', price: 29.90 },
+            { name: 'Lakrits 150g', price: 24.90 },
+            { name: 'Geléhallon 150g', price: 22.90 }
+        ],
+        'Djupfrys': [
+            { name: 'Glass Vanilj 1L', price: 39.90 },
+            { name: 'Fiskpinnar 30-pack', price: 49.90 },
+            { name: 'Pommes Frites 1kg', price: 29.90 },
+            { name: 'Ärtor 500g', price: 15.90 }
+        ],
+        'Övrig': [
+            { name: 'Tvål Flytande 500ml', price: 29.90 },
+            { name: 'Tandkräm 75ml', price: 24.90 },
+            { name: 'Hushållspapper 6-pack', price: 39.90 },
+            { name: 'Batterier AA 4-pack', price: 49.90 }
+        ]
+    };
+    
+    // Uppdatera showCategoryProducts-funktionen för att använda den globala categoryProducts
+    function showCategoryProducts(category, container) {
+        // Rensa befintliga produkter
+        container.innerHTML = '';
+        
+        // Visa produkter för den valda kategorin
+        const products = categoryProducts[category] || [];
+        
+        products.forEach(item => {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.className = 'suggestion-item';
+            
+            // Skapa produktbild
+            const productImage = document.createElement('div');
+            productImage.className = 'product-image';
+            const img = document.createElement('img');
+            img.src = item.image || 'placeholder.jpg';
+            img.alt = item.name;
+            productImage.appendChild(img);
+            
+            // Skapa produktnamn
+            const productName = document.createElement('div');
+            productName.className = 'product-name';
+            productName.textContent = item.name;
+            
+            // Skapa antalskontroll
+            const productQuantity = document.createElement('div');
+            productQuantity.className = 'product-quantity';
+            
+            const quantityControl = document.createElement('div');
+            quantityControl.className = 'quantity-control';
+            
+            const minusBtn = document.createElement('button');
+            minusBtn.className = 'quantity-btn';
+            minusBtn.textContent = '-';
+            minusBtn.onclick = function(e) {
+                e.stopPropagation();
+                const input = this.parentNode.querySelector('.quantity-value');
+                let value = parseInt(input.value);
+                if (value > 0) {
+                    input.value = value - 1;
+                }
+            };
+            
+            const quantityInput = document.createElement('input');
+            quantityInput.type = 'text';
+            quantityInput.className = 'quantity-value';
+            quantityInput.value = '0';
+            quantityInput.readOnly = true;
+            
+            const plusBtn = document.createElement('button');
+            plusBtn.className = 'quantity-btn';
+            plusBtn.textContent = '+';
+            plusBtn.onclick = function(e) {
+                e.stopPropagation();
+                const input = this.parentNode.querySelector('.quantity-value');
+                let value = parseInt(input.value);
+                input.value = value + 1;
+            };
+            
+            quantityControl.appendChild(minusBtn);
+            quantityControl.appendChild(quantityInput);
+            quantityControl.appendChild(plusBtn);
+            
+            productQuantity.appendChild(quantityControl);
+            
+            // Lägg till alla delar i produktkortet
+            suggestionItem.appendChild(productImage);
+            suggestionItem.appendChild(productName);
+            suggestionItem.appendChild(productQuantity);
+            
+            // Uppdatera klickhändelsen för att lägga till varan i kundvagnen
+            suggestionItem.onclick = function() {
+                const quantity = parseInt(this.querySelector('.quantity-value').value);
+                if (quantity > 0) {
+                    // Lägg till varan i kundvagnen med rätt antal
+                    for (let i = 0; i < quantity; i++) {
+                        cart.push(item);
+                    }
+                    updateCart();
+                    document.body.removeChild(document.querySelector('.popup'));
+                }
+            };
+            
+            container.appendChild(suggestionItem);
+        });
     }
 
     // Funktion för att lägga till en sökt produkt
@@ -467,5 +662,19 @@ document.addEventListener('DOMContentLoaded', function() {
         popup.appendChild(popupContent);
         
         document.body.appendChild(popup);
+    }
+
+    // Hjälpfunktion för att hitta en produkt baserat på namn
+    function findProductByName(name) {
+        // Gå igenom alla kategorier och produkter
+        for (const category in categoryProducts) {
+            const products = categoryProducts[category];
+            for (const product of products) {
+                if (product.name === name) {
+                    return product;
+                }
+            }
+        }
+        return null;
     }
 }); 
