@@ -651,15 +651,20 @@ document.addEventListener('DOMContentLoaded', function() {
             suggestionItem.appendChild(productName);
             suggestionItem.appendChild(productQuantity);
             
-            // Uppdatera klickhändelsen för att lägga till varan i kundvagnen
-            suggestionItem.onclick = function() {
-                const quantity = parseInt(this.querySelector('.quantity-value').value);
-                if (quantity > 0) {
-                    // Lägg till varan i kundvagnen med rätt antal
-                    for (let i = 0; i < quantity; i++) {
-                        cart.push(item);
-                    }
+            // Uppdatera klickhändelsen för att lägga till varan direkt i kundvagnen och stänga popupen
+            suggestionItem.onclick = function(e) {
+                // Om klicket kommer från själva kortet (inte från antalskontrollen)
+                if (!e.target.closest('.quantity-control')) {
+                    // Lägg till en vara direkt
+                    cart.push(item);
                     updateCart();
+                    
+                    // Uppdatera antalet i input-fältet
+                    const input = this.querySelector('.quantity-value');
+                    let value = parseInt(input.value);
+                    input.value = value + 1;
+                    
+                    // Stäng popupen
                     document.body.removeChild(document.querySelector('.popup'));
                 }
             };
