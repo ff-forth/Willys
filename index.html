@@ -12,6 +12,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
+    <!-- Ändra topbar till att ha en klass för att kunna dölja/visa den -->
+    <div class="topbar" id="topbar" style="display: none;">
+        <div class="topbar-left">
+            <button id="help-button" class="call-staff-button">Tillkalla personal</button>
+        </div>
+        <div class="topbar-center">
+            <img src="https://jamformatkasse.se/wp-content/uploads/2020/05/willys-logo.png" alt="Willys Logo" class="topbar-logo">
+        </div>
+        <div class="topbar-right">
+            <span class="topbar-time" id="current-time">12:30</span>
+        </div>
+    </div>
+
     <main id="app">
         <!-- Innehållet kommer att ändras dynamiskt baserat på vilken sida vi är på -->
         <div id="scan-method-page" class="page active">
@@ -35,19 +48,27 @@
         </div>
 
         <div id="scanning-page" class="page">
-            <h2>Skanna dina varor</h2>
-            <div class="product-list">
-                <h3>Dina varor:</h3>
-                <ul id="product-items">
-                    <!-- Produkter kommer att läggas till här dynamiskt -->
-                </ul>
-                <div class="total-section">
-                    <p>Totalt: <span id="total-amount">0</span> kr</p>
+            <div class="scanning-container">
+                <div class="product-list">
+                    <h2>Skanna dina varor</h2>
+                    <div class="scanning-instructions">
+                        <p>Håll streckkoden framför skannern för att registrera varan.</p>
+                        <div class="scanner-animation">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1553/1553930.png" alt="Skanner" class="scanner-icon">
+                        </div>
+                    </div>
+                    <h3>Dina varor:</h3>
+                    <ul id="product-items">
+                        <!-- Produkter kommer att läggas till här dynamiskt -->
+                    </ul>
+                    <div class="total-section">
+                        <p>Totalt: <span id="total-amount">0</span> kr</p>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="scan-button" class="primary-button">Skanna vara</button>
+                        <button id="proceed-to-payment" class="secondary-button">Betala med kort</button>
+                    </div>
                 </div>
-            </div>
-            <div class="action-buttons">
-                <button id="scan-button" class="primary-button">Skanna vara</button>
-                <button id="proceed-to-payment" class="secondary-button">Betala med kort</button>
             </div>
         </div>
 
@@ -105,10 +126,5 @@
             <button id="new-customer" class="primary-button">Ny kund</button>
         </div>
     </main>
-
-    <footer id="main-footer" class="hidden-on-first-page">
-        <p>Behöver du hjälp? Tryck på hjälpknappen eller kontakta personalen</p>
-        <button id="help-button" class="help-button">Hjälp</button>
-    </footer>
 </body>
 </html> 

@@ -12,6 +12,8 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
 
 /* Header-stilar */
@@ -35,10 +37,11 @@ body {
 /* Huvudinnehåll */
 main {
     flex: 1;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0;
+    max-width: 100%;
     width: 100%;
+    margin: 0;
+    padding-top: 1rem;
 }
 
 /* Sidhantering */
@@ -123,38 +126,61 @@ button:active {
 
 /* Skanningssida */
 .product-list {
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     background-color: white;
-    border-radius: 8px;
-    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.product-list h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.scanning-instructions {
+    text-align: center;
+    margin: 1rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scanner-animation {
     margin: 1.5rem 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.scanner-icon {
+    width: 120px;
+    height: 120px;
 }
 
 #product-items {
-    list-style-type: none;
+    flex-grow: 1;
+    overflow-y: auto;
     margin: 1rem 0;
-}
-
-#product-items li {
-    padding: 0.75rem;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
+    min-height: 200px;
 }
 
 .total-section {
-    margin-top: 1rem;
     padding-top: 1rem;
     border-top: 2px solid #eee;
     font-weight: bold;
     text-align: right;
     font-size: 1.2rem;
+    margin: 1rem 0;
 }
 
 .action-buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 2rem;
+    width: 100%;
+    margin-top: 1rem;
 }
 
 /* Betalningssida */
@@ -499,5 +525,73 @@ body:not(.first-page) .hidden-on-first-page {
     height: 80px;
     cursor: pointer;
     filter: brightness(0) invert(1);
+}
+
+/* Förenkla layout för skanningssidan */
+.scanning-container {
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 60px);
+    margin: 0;
+    padding: 0;
+}
+
+/* Uppdatera stil för hjälpknapp i topbaren */
+.call-staff-button {
+    background-color: #666666;
+    color: white;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 0.9rem;
+}
+
+.call-staff-button:hover {
+    background-color: #555555;
+}
+
+/* Justera topbar-left för att centrera hjälpknappen vertikalt */
+.topbar-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+/* Topbar stil */
+.topbar {
+    background-color: white;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+.topbar-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topbar-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.topbar-logo {
+    height: 40px;
+}
+
+.topbar-time {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
 }
 

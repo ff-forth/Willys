@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         document.getElementById(pageId).classList.add('active');
         
-        // Hantera footer-visning
-        if (pageId === 'scan-method-page') {
-            document.getElementById('main-footer').style.display = 'none';
+        // Visa topbar endast på skanningssidan
+        if (pageId === 'scanning-page') {
+            document.getElementById('topbar').style.display = 'flex';
         } else {
-            document.getElementById('main-footer').style.display = 'flex';
+            document.getElementById('topbar').style.display = 'none';
         }
     }
     
@@ -155,9 +155,10 @@ document.addEventListener('DOMContentLoaded', function() {
         showPage('scan-method-page');
     });
     
-    // Hjälpknapp
+    // Uppdatera händelsehanteraren för hjälpknappen
     document.getElementById('help-button').addEventListener('click', function() {
-        alert('Personal kommer att hjälpa dig inom kort.');
+        // Visa popup istället för alert
+        showCallStaffPopup();
     });
 
     // Funktion för att visa popup
@@ -244,4 +245,50 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.appendChild(popup);
     }
+
+    // Lägg till funktion för att visa popup när personal tillkallas
+    function showCallStaffPopup() {
+        // Skapa popup-element
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        
+        const popupContent = document.createElement('div');
+        popupContent.className = 'popup-content';
+        
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        const message = document.createElement('p');
+        message.textContent = 'Personal kommer att hjälpa dig inom kort.';
+        
+        const okButton = document.createElement('button');
+        okButton.className = 'primary-button';
+        okButton.textContent = 'OK';
+        okButton.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        popupContent.appendChild(closeBtn);
+        popupContent.appendChild(message);
+        popupContent.appendChild(okButton);
+        popup.appendChild(popupContent);
+        
+        document.body.appendChild(popup);
+    }
+
+    // Uppdatera klockan i topbar
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        document.getElementById('current-time').textContent = `${hours}:${minutes}`;
+    }
+
+    // Uppdatera klockan varje minut
+    setInterval(updateClock, 60000);
+    updateClock(); // Kör direkt vid sidladdning
 }); 
