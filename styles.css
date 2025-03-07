@@ -446,3 +446,58 @@ body:not(.first-page) .hidden-on-first-page {
     font-size: 1.2rem;
 }
 
+/* Större popup för att blippa kortet */
+.popup-large .popup-content {
+    max-width: 900px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 400px;
+    background-color: #e30613;
+    color: white;
+}
+
+.popup-large .popup-content p {
+    font-size: 1.8rem;
+    margin: 1rem 0;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.popup-large .close-btn {
+    font-size: 2rem;
+    top: 15px;
+    right: 20px;
+    color: white;
+}
+
+.popup-large button {
+    font-size: 1.4rem;
+    padding: 1rem 2rem;
+}
+
+/* Uppdatera klickbart område för att visa innehållet vertikalt */
+.popup-clickable-area {
+    cursor: pointer;
+    padding: 2rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Justera kortikon-container och storlek */
+.card-icon-container {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.card-icon {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    filter: brightness(0) invert(1);
+}
+

@@ -198,49 +198,48 @@ document.addEventListener('DOMContentLoaded', function() {
     function showBlipCardPopup() {
         // Skapa popup-element
         const popup = document.createElement('div');
-        popup.className = 'popup';
+        popup.className = 'popup popup-large';
         
         const popupContent = document.createElement('div');
         popupContent.className = 'popup-content';
         
+        // Lägg till stängknapp
         const closeBtn = document.createElement('span');
         closeBtn.className = 'close-btn';
         closeBtn.innerHTML = '&times;';
-        closeBtn.onclick = function() {
+        closeBtn.onclick = function(e) {
+            e.stopPropagation(); // Förhindra att klicket når popupContent
             document.body.removeChild(popup);
         };
+        
+        // Skapa ett klickbart område i mitten
+        const clickableArea = document.createElement('div');
+        clickableArea.className = 'popup-clickable-area';
         
         const message = document.createElement('p');
         message.textContent = 'Vänligen blippa ditt kort i kortterminalen innan du börjar skanna dina varor.';
         
-        const okButton = document.createElement('button');
-        okButton.className = 'primary-button';
-        okButton.textContent = 'Jag har blippat mitt kort';
-        okButton.onclick = function() {
+        // Lägg till kortikon
+        const cardIconContainer = document.createElement('div');
+        cardIconContainer.className = 'card-icon-container';
+        
+        const cardIcon = document.createElement('img');
+        cardIcon.className = 'card-icon';
+        cardIcon.src = 'https://cdn-icons-png.flaticon.com/128/3037/3037255.png';
+        cardIcon.alt = 'Kortikon';
+        cardIcon.onclick = function() {
             document.body.removeChild(popup);
             showPage('scanning-page');
         };
         
-        const cancelButton = document.createElement('button');
-        cancelButton.className = 'secondary-button';
-        cancelButton.textContent = 'Avbryt';
-        cancelButton.style.marginLeft = '10px';
-        cancelButton.onclick = function() {
-            document.body.removeChild(popup);
-        };
+        cardIconContainer.appendChild(cardIcon);
+        
+        // Ändra ordningen - lägg till texten först, sedan kortikonen
+        clickableArea.appendChild(message);
+        clickableArea.appendChild(cardIconContainer);
         
         popupContent.appendChild(closeBtn);
-        popupContent.appendChild(message);
-        
-        const buttonContainer = document.createElement('div');
-        buttonContainer.style.display = 'flex';
-        buttonContainer.style.justifyContent = 'center';
-        buttonContainer.style.gap = '10px';
-        
-        buttonContainer.appendChild(okButton);
-        buttonContainer.appendChild(cancelButton);
-        
-        popupContent.appendChild(buttonContainer);
+        popupContent.appendChild(clickableArea);
         popup.appendChild(popupContent);
         
         document.body.appendChild(popup);
