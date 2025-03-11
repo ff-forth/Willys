@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const randomIndex = Math.floor(Math.random() * products.length);
         const product = products[randomIndex];
         cart.push(product);
+        // Uppdatera kundvagnen utan att visa popup här
         updateCart();
     }
     
@@ -136,15 +137,22 @@ document.addEventListener('DOMContentLoaded', function() {
         showBlipCardPopup();
     });
     
-    // Skanningssida - lägg till händelsehanterare för scan-button
-    // Eftersom vi inte längre har en scan-button, kan vi lägga till en simulerad skanning
-    // när användaren klickar på produktlistan
+    // Skanningssida - lägg till händelsehanterare för produktlistan
     document.querySelector('.product-list').addEventListener('click', function(e) {
         // Kontrollera om vi klickade på produktlistan och inte på en produkt
         if (e.target.classList.contains('product-list') || 
             e.target.tagName === 'H3' || 
             e.target === document.getElementById('product-items')) {
+            
+            // Spara längden på kundvagnen före vi lägger till en produkt
+            const oldCartLength = cart.length;
+            
+            // Lägg till en slumpmässig produkt
             addRandomProduct();
+            
+            // Visa popup med den nya produkten
+            const newProduct = cart[cart.length - 1];
+            showPlaceOnScalePopup(newProduct.name);
         }
     });
     
@@ -379,6 +387,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const price = getQuickItemPrice(itemName);
             cart.push({ name: fullName, price: price });
             updateCart();
+            
+            // Visa popup för den tillagda varan
+            showPlaceOnScalePopup(fullName);
         });
     });
     
@@ -494,14 +505,22 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Lägg till produkten i kundvagnen med rätt antal
                         for (let i = 0; i < quantity; i++) {
                             cart.push(productData);
+                            selectedProducts.push(productData.name);
                         }
                     }
                 }
             });
             
-            // Uppdatera kundvagnen och stäng popupen
+            // Uppdatera kundvagnen
             updateCart();
+            
+            // Stäng popupen
             document.body.removeChild(popup);
+            
+            // Visa popup för alla valda varor om det finns några
+            if (selectedProducts.length > 0) {
+                showPlaceOnScalePopup(selectedProducts);
+            }
         };
         
         finishButtonContainer.appendChild(finishButton);
@@ -655,7 +674,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ]
     };
     
-    // Uppdatera showCategoryProducts-funktionen utan beskrivning
+    // Uppdatera showCategoryProducts-funktionen för att visa popup när man klickar på produktkort
     function showCategoryProducts(category, container) {
         // Rensa befintliga produkter
         container.innerHTML = '';
@@ -726,21 +745,26 @@ document.addEventListener('DOMContentLoaded', function() {
             suggestionItem.appendChild(productName);
             suggestionItem.appendChild(productQuantity);
             
-            // Uppdatera klickhändelsen för att lägga till varan direkt i kundvagnen och stänga popupen
+            // Uppdatera klickhändelsen för att lägga till varan direkt i kundvagnen och visa popup
             suggestionItem.onclick = function(e) {
                 // Om klicket kommer från själva kortet (inte från antalskontrollen)
                 if (!e.target.closest('.quantity-control')) {
                     // Lägg till en vara direkt
                     cart.push(item);
-                    updateCart();
                     
                     // Uppdatera antalet i input-fältet
                     const input = this.querySelector('.quantity-value');
                     let value = parseInt(input.value);
                     input.value = value + 1;
                     
-                    // Stäng popupen
+                    // Stäng popupen med sökfältet
                     document.body.removeChild(document.querySelector('.popup'));
+                    
+                    // Uppdatera kundvagnen
+                    updateCart();
+                    
+                    // Visa popup om att lägga varan på vågen
+                    showPlaceOnScalePopup(item.name);
                 }
             };
             
@@ -756,11 +780,72 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCart();
     }
     
-    // Händelsehanterare för "Egen kasse"
+    // Funktion för att visa popup om att lägga varor på vågen
+    function showPlaceOnScalePopup(productNames) {
+        // Skapa popup-element
+        const popup = document.createElement('div');
+        popup.className = 'popup popup-large';
+        
+        const popupContent = document.createElement('div');
+        popupContent.className = 'popup-content';
+        
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        // Skapa ett klickbart område i mitten
+        const clickableArea = document.createElement('div');
+        clickableArea.className = 'popup-clickable-area';
+        
+        let messageText;
+        if (Array.isArray(productNames) && productNames.length > 1) {
+            messageText = `Vänligen lägg dina ${productNames.length} varor på vågen.`;
+        } else {
+            const productName = Array.isArray(productNames) ? productNames[0] : productNames;
+            messageText = `Vänligen lägg "${productName}" på vågen.`;
+        }
+        
+        const message = document.createElement('p');
+        message.textContent = messageText;
+        
+        // Lägg till en bild på en våg
+        const scaleImage = document.createElement('div');
+        scaleImage.className = 'card-icon-container';
+        
+        const img = document.createElement('img');
+        img.className = 'card-icon';
+        img.src = 'https://cdn-icons-png.flaticon.com/512/1599/1599506.png';
+        img.alt = 'Våg';
+        
+        scaleImage.appendChild(img);
+        
+        // Ändra ordningen - lägg till texten först, sedan våg-ikonen
+        clickableArea.appendChild(message);
+        clickableArea.appendChild(scaleImage);
+        
+        // Lägg till klickhändelse på hela det klickbara området
+        clickableArea.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        popupContent.appendChild(closeBtn);
+        popupContent.appendChild(clickableArea);
+        popup.appendChild(popupContent);
+        
+        document.body.appendChild(popup);
+    }
+    
+    // Uppdatera händelsehanteraren för "Egen kasse"
     document.querySelector('.own-bag-button').addEventListener('click', function() {
         // Lägg till egen kasse i kundvagnen (pris 0)
         cart.push({ name: 'Egen kasse', price: 0 });
         updateCart();
+        
+        // Ta bort popup för egen kasse - vi visar inte popup för egen kasse
+        // showPlaceOnScalePopup('Egen kasse');
     });
 
     // Lägg till funktion för att visa popup när kundvagnen är tom
