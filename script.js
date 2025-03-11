@@ -507,8 +507,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
 
-    // Lägg till funktion för att visa popup med sökfält och produkter
-    function showManualSearchPopup(searchTerm = null, initialCategory = 'Fikabröd') {
+    // Uppdatera showManualSearchPopup-funktionen för att hantera underkategorier för Bröd
+    function showManualSearchPopup(searchTerm = null, initialCategory = 'Bröd') {
         // Skapa popup-element
         const popup = document.createElement('div');
         popup.className = 'popup';
@@ -561,22 +561,83 @@ document.addEventListener('DOMContentLoaded', function() {
         categoryNav.className = 'category-nav';
         
         const categories = [
-            'Fikabröd', 'Bröd', 'Frukt', 'Grönsaker', 'Drycker', 
+            'Bröd', 'Frukt', 'Grönsaker', 'Drycker', 
             'Färdigmat', 'Godis', 'Djupfrys', 'Övrig'
         ];
         
+        // Skapa underkategorinavigering (dold från början)
+        const subcategoryNav = document.createElement('div');
+        subcategoryNav.className = 'category-nav subcategory-nav';
+        subcategoryNav.style.marginTop = '5px';
+        subcategoryNav.style.marginBottom = '10px';
+        subcategoryNav.style.display = 'none';
+        
+        // Definiera underkategorier för Bröd
+        const breadSubcategories = ['Alla', 'Matbröd', 'Baguetter', 'Småbröd', 'kaffebröd'];
+        
+        // Skapa knappar för underkategorier
+        breadSubcategories.forEach(subcat => {
+            const subcatBtn = document.createElement('button');
+            subcatBtn.className = 'category-btn subcategory-btn';
+            subcatBtn.textContent = subcat;
+            subcatBtn.style.padding = '6px 12px'; // Mindre padding
+            subcatBtn.style.fontSize = '0.9rem'; // Mindre textstorlek
+            subcatBtn.style.margin = '0 5px 5px 0'; // Mindre marginaler
+            subcatBtn.onclick = function() {
+                // Markera den aktiva underkategorin
+                document.querySelectorAll('.subcategory-nav .category-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                subcatBtn.classList.add('active');
+                
+                // Visa produkter baserat på underkategori
+                if (subcat === 'Alla') {
+                    // Visa alla brödprodukter
+                    showAllBreadProducts(suggestedItems);
+                } else if (subcat === 'kaffebröd') {
+                    // Visa fikabröd (kaffebröd)
+                    showCategoryProducts('Fikabröd', suggestedItems);
+                } else if (subcat === 'Matbröd') {
+                    // Visa matbröd
+                    showCategoryProducts('Bröd', suggestedItems);
+                } else {
+                    // För andra underkategorier, visa bara bröd för nu
+                    showCategoryProducts('Bröd', suggestedItems);
+                }
+            };
+            subcategoryNav.appendChild(subcatBtn);
+        });
+        
+        // Skapa knappar för huvudkategorier
         categories.forEach(category => {
             const categoryBtn = document.createElement('button');
             categoryBtn.className = 'category-btn';
             categoryBtn.textContent = category;
             categoryBtn.onclick = function() {
-                // Visa produkter för den valda kategorin
-                showCategoryProducts(category, suggestedItems);
                 // Markera den aktiva kategorin
-                document.querySelectorAll('.category-btn').forEach(btn => {
+                document.querySelectorAll('.category-nav > .category-btn').forEach(btn => {
                     btn.classList.remove('active');
                 });
                 categoryBtn.classList.add('active');
+                
+                // Visa/dölj underkategorier baserat på vald kategori
+                if (category === 'Bröd') {
+                    subcategoryNav.style.display = 'flex';
+                    // Markera "Alla" som aktiv från början
+                    document.querySelectorAll('.category-nav + .category-nav .category-btn').forEach((btn, i) => {
+                        if (i === 0) {
+                            btn.classList.add('active');
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    });
+                    // Visa alla brödprodukter
+                    showAllBreadProducts(suggestedItems);
+                } else {
+                    subcategoryNav.style.display = 'none';
+                    // Visa produkter för den valda kategorin
+                    showCategoryProducts(category, suggestedItems);
+                }
             };
             categoryNav.appendChild(categoryBtn);
         });
@@ -628,9 +689,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         finishButtonContainer.appendChild(finishButton);
         
-        // Visa den angivna kategorin
-        showCategoryProducts(initialCategory, suggestedItems);
-        
         searchForm.appendChild(searchInput);
         searchForm.appendChild(searchButton);
         
@@ -638,18 +696,25 @@ document.addEventListener('DOMContentLoaded', function() {
         popupContent.appendChild(title);
         popupContent.appendChild(searchForm);
         popupContent.appendChild(categoryNav);
+        popupContent.appendChild(subcategoryNav);
         popupContent.appendChild(suggestedItems);
         popupContent.appendChild(finishButtonContainer);
         popup.appendChild(popupContent);
         
         document.body.appendChild(popup);
         
-        // Markera rätt kategoriknapp som aktiv
-        document.querySelectorAll('.category-btn').forEach(btn => {
+        // Markera rätt kategoriknapp som aktiv och visa rätt produkter
+        document.querySelectorAll('.category-nav > .category-btn').forEach(btn => {
             if (btn.textContent === initialCategory) {
                 btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
+                // Om Bröd är vald, visa underkategorier
+                if (initialCategory === 'Bröd') {
+                    subcategoryNav.style.display = 'flex';
+                    document.querySelectorAll('.category-nav + .category-nav .category-btn')[0].classList.add('active');
+                    showAllBreadProducts(suggestedItems);
+                } else {
+                    showCategoryProducts(initialCategory, suggestedItems);
+                }
             }
         });
         
@@ -657,6 +722,108 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             searchInput.focus();
         }, 100);
+    }
+
+    // Hjälpfunktion för att visa alla brödprodukter
+    function showAllBreadProducts(container) {
+        // Rensa befintliga produkter
+        container.innerHTML = '';
+        
+        // Kombinera produkter från Fikabröd och Bröd
+        const allBreadProducts = [
+            ...(categoryProducts['Fikabröd'] || []),
+            ...(categoryProducts['Bröd'] || [])
+        ];
+        
+        // Visa produkterna
+        allBreadProducts.forEach(item => {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.className = 'suggestion-item';
+            
+            // Skapa produktbild
+            const productImage = document.createElement('div');
+            productImage.className = 'product-image';
+            const img = document.createElement('img');
+            img.src = item.image || 'placeholder.jpg';
+            img.alt = item.name;
+            productImage.appendChild(img);
+            
+            // Skapa produktnamn
+            const productName = document.createElement('div');
+            productName.className = 'product-name';
+            productName.textContent = item.name;
+            
+            // Skapa antalskontroll
+            const productQuantity = document.createElement('div');
+            productQuantity.className = 'product-quantity';
+            
+            const quantityControl = document.createElement('div');
+            quantityControl.className = 'quantity-control';
+            
+            const minusBtn = document.createElement('button');
+            minusBtn.className = 'quantity-btn';
+            minusBtn.textContent = '-';
+            minusBtn.onclick = function(e) {
+                e.stopPropagation();
+                const input = this.parentNode.querySelector('.quantity-value');
+                let value = parseInt(input.value);
+                if (value > 0) {
+                    input.value = value - 1;
+                }
+            };
+            
+            const quantityInput = document.createElement('input');
+            quantityInput.type = 'text';
+            quantityInput.className = 'quantity-value';
+            quantityInput.value = '0';
+            quantityInput.readOnly = true;
+            
+            const plusBtn = document.createElement('button');
+            plusBtn.className = 'quantity-btn';
+            plusBtn.textContent = '+';
+            plusBtn.onclick = function(e) {
+                e.stopPropagation();
+                const input = this.parentNode.querySelector('.quantity-value');
+                let value = parseInt(input.value);
+                input.value = value + 1;
+            };
+            
+            quantityControl.appendChild(minusBtn);
+            quantityControl.appendChild(quantityInput);
+            quantityControl.appendChild(plusBtn);
+            
+            productQuantity.appendChild(quantityControl);
+            
+            // Lägg till alla delar i produktkortet
+            suggestionItem.appendChild(productImage);
+            suggestionItem.appendChild(productName);
+            suggestionItem.appendChild(productQuantity);
+            
+            // Uppdatera klickhändelsen för att lägga till varan direkt i kundvagnen och visa popup
+            suggestionItem.onclick = function(e) {
+                // Om klicket kommer från själva kortet (inte från antalskontrollen)
+                if (!e.target.closest('.quantity-control')) {
+                    // Lägg till en vara direkt
+                    cart.push(item);
+                    
+                    // Uppdatera antalet i input-fältet
+                    const input = this.querySelector('.quantity-value');
+                    let value = parseInt(input.value);
+                    input.value = value + 1;
+                    
+                    // Stäng popupen med sökfältet
+                    document.body.removeChild(document.querySelector('.popup'));
+                    
+                    // Uppdatera kundvagnen
+                    updateCart();
+                    
+                    // Visa popup om att lägga varan på vågen
+                    showPlaceOnScalePopup(item.name);
+                }
+            };
+            
+            container.appendChild(suggestionItem);
+        });
     }
 
     // Produktdata per kategori med bildlänkar - flytta till global scope
