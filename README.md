@@ -1,54 +1,54 @@
-# Willys Självutcheckning
+# Willys Self-Checkout
 
-En interaktiv webbapplikation som simulerar självutcheckning i en Willys-butik. Projektet är byggt med HTML, CSS och JavaScript.
+An interactive web application that simulates the self-checkout experience in a Willys grocery store. The project is built with HTML, CSS, and JavaScript.
 
-## Funktioner
+## Features
 
-- Välj mellan att skanna varor direkt eller använda förskannade varor
-- Skanna varor genom att klicka på produkter i kategorier
-- Sök efter varor manuellt
-- Visa kundvagn med produkter, antal och priser
-- Simulera betalning med kort
-- Kvittohantering (utskrift eller e-post)
+- Choose between scanning items directly or using pre-scanned items
+- Scan items by clicking on products in categories
+- Search for items manually
+- Display shopping cart with products, quantities, and prices
+- Simulate card payment
+- Receipt handling (print or email)
 
-## Skärmar
+## Screens
 
-Applikationen innehåller flera skärmar:
+The application contains several screens:
 
-1. **Startskärm** - Välj mellan att skanna varor direkt eller använda förskannade varor
-2. **Skanningsskärm** - Skanna varor eller välj dem manuellt
-3. **Betalningsskärm** - Välj betalningsmetod
-4. **Kortbetalningsskärm** - Simulerar kortbetalning
-5. **Kvittoskärm** - Välj hur du vill ha ditt kvitto
-6. **Avslutningsskärm** - Bekräftar köpet
+1. **Start Screen** - Choose between scanning items directly or using pre-scanned items
+2. **Scanning Screen** - Scan items or select them manually
+3. **Payment Screen** - Choose payment method
+4. **Card Payment Screen** - Simulates card payment
+5. **Receipt Screen** - Choose how you want your receipt
+6. **Completion Screen** - Confirms the purchase
 
-## Produktkategorier
+## Product Categories
 
-Applikationen innehåller flera produktkategorier:
+The application includes several product categories:
 
-- Frukt & Grönt
-- Mejeri
-- Bröd
-- Dryck
-- Fikabröd
+- Fruits & Vegetables
+- Dairy
+- Bread
+- Beverages
+- Pastries
 - Snacks
 
-## Användning
+## Usage
 
-1. Öppna `index.html` i en webbläsare
-2. Välj "Tryck här för att skanna dina varor nu"
-3. Lägg till varor genom att klicka på "Välj varor manuellt" eller använd snabbvalen
-4. När du är klar, klicka på "Till betalning"
-5. Följ instruktionerna för att slutföra köpet
+1. Open `index.html` in a web browser
+2. Select "Press here to scan your items now"
+3. Add items by clicking on "Select items manually" or use the quick selection buttons
+4. When you're done, click on "Proceed to payment"
+5. Follow the instructions to complete the purchase
 
-## Utveckling
+## Development
 
-### Filstruktur
+### File Structure
 
-- `index.html` - Huvudsaklig HTML-struktur
-- `styles.css` - CSS-stilar för applikationen
-- `script.js` - JavaScript-funktionalitet
+- `index.html` - Main HTML structure
+- `styles.css` - CSS styles for the application
+- `script.js` - JavaScript functionality
 
-### Anpassning
+### Customization
 
-För att lägga till nya produkter, uppdatera `categoryProducts`-objektet i `script.js`:
+To add new products, update the `categoryProducts` object in `script.js`:
