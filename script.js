@@ -405,12 +405,110 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Uppdatera händelsehanteraren för "Välj varor manuellt"
     document.querySelector('.manual-select-button').addEventListener('click', function() {
-        // Visa popup med sökfält
-        showManualSearchPopup();
+        // Visa kategoriväljare först istället för sökpopupen direkt
+        showCategorySelectionPopup();
     });
     
-    // Lägg till funktion för att visa popup med sökfält
-    function showManualSearchPopup() {
+    // Funktion för att visa kategoriväljare
+    function showCategorySelectionPopup() {
+        // Skapa popup-element
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        
+        const popupContent = document.createElement('div');
+        popupContent.className = 'popup-content search-popup-large';
+        
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '&times;';
+        closeBtn.onclick = function() {
+            document.body.removeChild(popup);
+        };
+        
+        const title = document.createElement('h3');
+        title.textContent = 'SÖK VARA';
+        title.style.textAlign = 'center';
+        title.style.marginBottom = '1.5rem';
+        
+        // Skapa sökfält
+        const searchForm = document.createElement('div');
+        searchForm.className = 'search-form';
+        
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.placeholder = 'Skriv varunamn:';
+        
+        const searchButton = document.createElement('button');
+        searchButton.className = 'primary-button';
+        searchButton.textContent = 'SÖK';
+        searchButton.onclick = function() {
+            // Stäng denna popup
+            document.body.removeChild(popup);
+            // Visa sökresultat baserat på söktermen
+            showManualSearchPopup(searchInput.value);
+        };
+        
+        searchForm.appendChild(searchInput);
+        searchForm.appendChild(searchButton);
+        
+        // Skapa kategorigrid
+        const categoryGrid = document.createElement('div');
+        categoryGrid.className = 'category-grid';
+        categoryGrid.style.display = 'grid';
+        categoryGrid.style.gridTemplateColumns = 'repeat(4, 1fr)';
+        categoryGrid.style.gap = '15px';
+        categoryGrid.style.margin = '2rem 0';
+        categoryGrid.style.flex = '1';
+        categoryGrid.style.overflowY = 'auto';
+        
+        // Lista över kategorier
+        const categories = [
+            'Fikabröd', 'Bröd', 'Frukt', 'Grönsaker', 
+            'Drycker', 'Färdigmat', 'Godis', 'Djupfrys', 'Övrig'
+        ];
+        
+        // Skapa kategorirutor
+        categories.forEach(category => {
+            const categoryBox = document.createElement('div');
+            categoryBox.className = 'suggestion-item';
+            categoryBox.style.height = 'auto';
+            categoryBox.style.padding = '20px 10px';
+            categoryBox.style.textAlign = 'center';
+            categoryBox.style.display = 'flex';
+            categoryBox.style.justifyContent = 'center';
+            categoryBox.style.alignItems = 'center';
+            categoryBox.style.fontWeight = 'bold';
+            
+            categoryBox.textContent = category;
+            
+            // Klickhändelse
+            categoryBox.onclick = function() {
+                // Stäng denna popup
+                document.body.removeChild(popup);
+                // Visa produkter för den valda kategorin
+                showManualSearchPopup(null, category);
+            };
+            
+            categoryGrid.appendChild(categoryBox);
+        });
+        
+        // Lägg till allt i popupen
+        popupContent.appendChild(closeBtn);
+        popupContent.appendChild(title);
+        popupContent.appendChild(searchForm);
+        popupContent.appendChild(categoryGrid);
+        popup.appendChild(popupContent);
+        
+        document.body.appendChild(popup);
+        
+        // Fokusera på sökfältet
+        setTimeout(() => {
+            searchInput.focus();
+        }, 100);
+    }
+
+    // Lägg till funktion för att visa popup med sökfält och produkter
+    function showManualSearchPopup(searchTerm = null, initialCategory = 'Fikabröd') {
         // Skapa popup-element
         const popup = document.createElement('div');
         popup.className = 'popup';
@@ -447,6 +545,11 @@ document.addEventListener('DOMContentLoaded', function() {
         searchInput.id = 'search-input';
         searchInput.placeholder = 'Skriv varunamn...';
         searchInput.autocomplete = 'off';
+        
+        // Om en sökterm angavs, fyll i sökfältet
+        if (searchTerm) {
+            searchInput.value = searchTerm;
+        }
         
         const searchButton = document.createElement('button');
         searchButton.type = 'submit';
@@ -525,8 +628,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         finishButtonContainer.appendChild(finishButton);
         
-        // Visa fikabröd som standard
-        showCategoryProducts('Fikabröd', suggestedItems);
+        // Visa den angivna kategorin
+        showCategoryProducts(initialCategory, suggestedItems);
         
         searchForm.appendChild(searchInput);
         searchForm.appendChild(searchButton);
@@ -541,8 +644,14 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.appendChild(popup);
         
-        // Markera Fikabröd som aktiv kategori
-        document.querySelectorAll('.category-btn')[0].classList.add('active');
+        // Markera rätt kategoriknapp som aktiv
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            if (btn.textContent === initialCategory) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
         
         // Fokusera på sökfältet
         setTimeout(() => {
