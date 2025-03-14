@@ -425,6 +425,11 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.removeChild(popup);
         };
         
+        const title = document.createElement('h3');
+        title.textContent = 'SÖK VARA';
+        title.style.textAlign = 'center';
+        title.style.marginBottom = '1.5rem';
+        
         // Skapa sökfält
         const searchForm = document.createElement('div');
         searchForm.className = 'search-form';
@@ -451,8 +456,8 @@ document.addEventListener('DOMContentLoaded', function() {
         categoryGrid.className = 'category-grid';
         categoryGrid.style.display = 'grid';
         categoryGrid.style.gridTemplateColumns = 'repeat(4, 1fr)';
-        categoryGrid.style.gap = '15px';
-        categoryGrid.style.margin = '2rem 0';
+        categoryGrid.style.gap = '10px';
+        categoryGrid.style.margin = '1rem 0';
         categoryGrid.style.flex = '1';
         categoryGrid.style.overflowY = 'auto';
         
@@ -489,6 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Lägg till allt i popupen
         popupContent.appendChild(closeBtn);
+        popupContent.appendChild(title);
         popupContent.appendChild(searchForm);
         popupContent.appendChild(categoryGrid);
         popup.appendChild(popupContent);
@@ -516,6 +522,9 @@ document.addEventListener('DOMContentLoaded', function() {
         closeBtn.onclick = function() {
             document.body.removeChild(popup);
         };
+        
+        const title = document.createElement('h3');
+        title.textContent = '';
         
         const searchForm = document.createElement('form');
         searchForm.className = 'search-form';
@@ -550,6 +559,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Skapa kategorinavigering
         const categoryNav = document.createElement('div');
         categoryNav.className = 'category-nav';
+        categoryNav.style.gap = '5px';
+        categoryNav.style.marginBottom = '10px';
         
         const categories = [
             'Bröd', 'Frukt', 'Grönsaker', 'Drycker', 
@@ -559,8 +570,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Skapa underkategorinavigering (dold från början)
         const subcategoryNav = document.createElement('div');
         subcategoryNav.className = 'category-nav subcategory-nav';
-        subcategoryNav.style.marginTop = '5px';
-        subcategoryNav.style.marginBottom = '10px';
+        subcategoryNav.style.marginTop = '2px';
+        subcategoryNav.style.marginBottom = '5px';
+        subcategoryNav.style.gap = '5px';
         subcategoryNav.style.display = 'none';
         
         // Definiera underkategorier för Bröd
@@ -571,9 +583,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const subcatBtn = document.createElement('button');
             subcatBtn.className = 'category-btn subcategory-btn';
             subcatBtn.textContent = subcat;
-            subcatBtn.style.padding = '6px 12px'; // Mindre padding
-            subcatBtn.style.fontSize = '0.9rem'; // Mindre textstorlek
-            subcatBtn.style.margin = '0 5px 5px 0'; // Mindre marginaler
+            subcatBtn.style.padding = '4px 10px'; // Mindre padding
+            subcatBtn.style.fontSize = '0.85rem'; // Mindre textstorlek
+            subcatBtn.style.margin = '0 2px 2px 0'; // Mindre marginaler
             subcatBtn.onclick = function() {
                 // Markera den aktiva underkategorin
                 document.querySelectorAll('.subcategory-nav .category-btn').forEach(btn => {
@@ -604,6 +616,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const categoryBtn = document.createElement('button');
             categoryBtn.className = 'category-btn';
             categoryBtn.textContent = category;
+            categoryBtn.style.padding = '6px 12px'; // Mindre padding
+            categoryBtn.style.fontSize = '0.9rem'; // Mindre textstorlek
+            categoryBtn.style.margin = '0 2px 2px 0'; // Mindre marginaler
             categoryBtn.onclick = function() {
                 // Markera den aktiva kategorin
                 document.querySelectorAll('.category-nav > .category-btn').forEach(btn => {
@@ -635,6 +650,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const suggestedItems = document.createElement('div');
         suggestedItems.className = 'suggested-items';
+        suggestedItems.style.gap = '10px';
+        suggestedItems.style.marginTop = '0.5rem';
         
         // Lägg till en container för färdig-knappen
         const finishButtonContainer = document.createElement('div');
@@ -684,6 +701,7 @@ document.addEventListener('DOMContentLoaded', function() {
         searchForm.appendChild(searchButton);
         
         popupContent.appendChild(closeBtn);
+        popupContent.appendChild(title);
         popupContent.appendChild(searchForm);
         popupContent.appendChild(categoryNav);
         popupContent.appendChild(subcategoryNav);
@@ -820,26 +838,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryProducts = {
         'Fikabröd': [
             { 
-                name: 'Vaniljmunk', 
-                price: 9.90, 
-                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960722953_C1C0_s01'
-            },
-            { 
-                name: 'Vaniljhjärta', 
-                price: 9.90, 
-                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960855101_C1C0_s01'
-            },
-            { 
-                name: 'Croissant', 
-                price: 9.90, 
-                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960788058_C1N0_s01'
-            },
-            { 
-                name: 'Pain Au Chocolat', 
-                price: 9.90, 
-                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960788096_C1C0_s01'
-            },
-            { 
                 name: 'Chokladmunk Lyx', 
                 price: 9.90, 
                 image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960773023_S01'
@@ -850,24 +848,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960019497_C1C1_s01'
             },
             { 
-                name: 'Äppelmunk', 
+                name: 'Croissant', 
                 price: 9.90, 
-                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960722960_C1C0_s01'
-            },
-            { 
-                name: 'Hallonmunk Lyx', 
-                price: 9.90, 
-                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960773016_C1C1_s01'
-            },
-            { 
-                name: 'Lyxmunk Salted Caramel', 
-                price: 9.90, 
-                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960781059_C1C1_s01'
-            },
-            { 
-                name: 'Solbulle', 
-                price: 9.90, 
-                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960785057_C1C1_s01'
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960788058_C1N0_s01'
             },
             { 
                 name: 'Croissant Choklad', 
@@ -880,14 +863,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07350031139204_C1C1_s01'
             },
             { 
-                name: 'Wienerbröd Vanilj', 
+                name: 'Hallonmunk Lyx', 
                 price: 9.90, 
-                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07311141390640_C1C0_s01'
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960773016_C1C1_s01'
             },
             { 
                 name: 'Kanelsnäcka Kanelbulle', 
                 price: 9.90, 
                 image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07311141390602_C1C0_s01'
+            },
+            { 
+                name: 'Lyxmunk Salted Caramel', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960781059_C1C1_s01'
+            },
+            { 
+                name: 'Pain Au Chocolat', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960788096_C1C0_s01'
+            },
+            { 
+                name: 'Solbulle', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960785057_C1C1_s01'
+            },
+            { 
+                name: 'Vaniljhjärta', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960855101_C1C0_s01'
+            },
+            { 
+                name: 'Vaniljmunk', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960722953_C1C0_s01'
+            },
+            { 
+                name: 'Wienerbröd Vanilj', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07311141390640_C1C0_s01'
+            },
+            { 
+                name: 'Wienerbröd Vanilj Hallon', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07311141390657_C1C0_s01'
+            },
+            { 
+                name: 'Äppelmunk', 
+                price: 9.90, 
+                image: 'https://assets.axfood.se/image/upload/f_auto,t_200/07310960722960_C1C0_s01'
             }
         ],
         'Bröd': [
