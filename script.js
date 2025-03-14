@@ -505,6 +505,169 @@ document.addEventListener('DOMContentLoaded', function() {
         showCategorySelectionPopup();
     });
     
+    // Lägg till funktion för att skapa ett virtuellt tangentbord
+    function createVirtualKeyboard(inputElement) {
+        // Ta bort befintligt tangentbord om det finns
+        const existingKeyboard = document.querySelector('.virtual-keyboard');
+        if (existingKeyboard) {
+            existingKeyboard.remove();
+        }
+        
+        // Skapa container för tangentbordet
+        const keyboardContainer = document.createElement('div');
+        keyboardContainer.className = 'virtual-keyboard';
+        keyboardContainer.style.width = '100%';
+        keyboardContainer.style.backgroundColor = '#f0f0f0';
+        keyboardContainer.style.padding = '10px';
+        keyboardContainer.style.borderTop = '1px solid #ccc';
+        keyboardContainer.style.boxSizing = 'border-box';
+        keyboardContainer.style.position = 'fixed'; // Fixed position för att lägga över andra element
+        keyboardContainer.style.bottom = '0';
+        keyboardContainer.style.left = '0';
+        keyboardContainer.style.zIndex = '1000'; // Högt z-index för att lägga över andra element
+        keyboardContainer.style.display = 'flex';
+        keyboardContainer.style.flexDirection = 'column';
+        keyboardContainer.style.gap = '5px';
+        keyboardContainer.style.maxWidth = '100vw'; // Säkerställ att tangentbordet inte är bredare än viewport
+        keyboardContainer.style.boxShadow = '0 -2px 10px rgba(0, 0, 0, 0.1)'; // Skugga för att ge djup
+        
+        // Definiera tangentbordsrader
+        const rows = [
+            ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'],
+            ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'å'],
+            ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ö', 'ä'],
+            ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '-']
+        ];
+        
+        // Skapa tangentbordsrader
+        rows.forEach(row => {
+            const keyRow = document.createElement('div');
+            keyRow.style.display = 'flex';
+            keyRow.style.justifyContent = 'center';
+            keyRow.style.gap = '5px';
+            keyRow.style.width = '100%'; // Säkerställ att raden täcker hela bredden
+            
+            row.forEach(key => {
+                const keyButton = document.createElement('button');
+                keyButton.textContent = key;
+                keyButton.style.flex = '1';
+                keyButton.style.minWidth = '8%'; // Mindre minsta bredd för att passa på mindre skärmar
+                keyButton.style.height = '40px';
+                keyButton.style.border = '1px solid #ccc';
+                keyButton.style.borderRadius = '5px';
+                keyButton.style.backgroundColor = '#fff';
+                keyButton.style.fontSize = '16px';
+                keyButton.style.cursor = 'pointer';
+                keyButton.style.margin = '2px'; // Lägg till lite marginal mellan knapparna
+                
+                keyButton.onclick = function() {
+                    // Lägg till tecknet i inputfältet
+                    inputElement.value += key;
+                    // Trigga en input-händelse för att uppdatera eventuella lyssnare
+                    const event = new Event('input', { bubbles: true });
+                    inputElement.dispatchEvent(event);
+                    // Fokusera på inputfältet igen
+                    inputElement.focus();
+                };
+                
+                keyRow.appendChild(keyButton);
+            });
+            
+            keyboardContainer.appendChild(keyRow);
+        });
+        
+        // Skapa specialknappar (rad 5)
+        const specialRow = document.createElement('div');
+        specialRow.style.display = 'flex';
+        specialRow.style.justifyContent = 'center';
+        specialRow.style.gap = '5px';
+        specialRow.style.width = '100%'; // Säkerställ att raden täcker hela bredden
+        
+        // Mellanslag
+        const spaceButton = document.createElement('button');
+        spaceButton.textContent = 'Mellanslag';
+        spaceButton.style.flex = '3';
+        spaceButton.style.height = '40px';
+        spaceButton.style.border = '1px solid #ccc';
+        spaceButton.style.borderRadius = '5px';
+        spaceButton.style.backgroundColor = '#fff';
+        spaceButton.style.fontSize = '16px';
+        spaceButton.style.cursor = 'pointer';
+        spaceButton.style.margin = '2px'; // Lägg till lite marginal
+        
+        spaceButton.onclick = function() {
+            inputElement.value += ' ';
+            const event = new Event('input', { bubbles: true });
+            inputElement.dispatchEvent(event);
+            inputElement.focus();
+        };
+        
+        // Radera
+        const backspaceButton = document.createElement('button');
+        backspaceButton.textContent = '←';
+        backspaceButton.style.flex = '1';
+        backspaceButton.style.height = '40px';
+        backspaceButton.style.border = '1px solid #ccc';
+        backspaceButton.style.borderRadius = '5px';
+        backspaceButton.style.backgroundColor = '#fff';
+        backspaceButton.style.fontSize = '16px';
+        backspaceButton.style.cursor = 'pointer';
+        backspaceButton.style.margin = '2px'; // Lägg till lite marginal
+        
+        backspaceButton.onclick = function() {
+            inputElement.value = inputElement.value.slice(0, -1);
+            const event = new Event('input', { bubbles: true });
+            inputElement.dispatchEvent(event);
+            inputElement.focus();
+        };
+        
+        // Stäng tangentbord
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'Stäng';
+        closeButton.style.flex = '1';
+        closeButton.style.height = '40px';
+        closeButton.style.border = '1px solid #ccc';
+        closeButton.style.borderRadius = '5px';
+        closeButton.style.backgroundColor = '#e30613';
+        closeButton.style.color = 'white';
+        closeButton.style.fontSize = '16px';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.margin = '2px'; // Lägg till lite marginal
+        
+        closeButton.onclick = function() {
+            // Ta bort tangentbordet utan att påverka andra element
+            keyboardContainer.remove();
+            // Fokusera på inputfältet igen
+            inputElement.focus();
+        };
+        
+        specialRow.appendChild(spaceButton);
+        specialRow.appendChild(backspaceButton);
+        specialRow.appendChild(closeButton);
+        
+        keyboardContainer.appendChild(specialRow);
+        
+        // Lägg till lite extra padding längst ner för att undvika att tangentbordet täcker innehåll på vissa enheter
+        const paddingElement = document.createElement('div');
+        paddingElement.style.height = '10px';
+        keyboardContainer.appendChild(paddingElement);
+        
+        // Lägg till tangentbordet direkt i body för att undvika att påverka andra element
+        document.body.appendChild(keyboardContainer);
+        
+        // Animera in tangentbordet från botten
+        keyboardContainer.style.transform = 'translateY(100%)';
+        keyboardContainer.style.transition = 'transform 0.3s ease-out';
+        
+        // Trigga reflow för att animationen ska fungera
+        keyboardContainer.offsetHeight;
+        
+        // Visa tangentbordet
+        keyboardContainer.style.transform = 'translateY(0)';
+        
+        return keyboardContainer;
+    }
+
     // Funktion för att visa kategoriväljare
     function showCategorySelectionPopup() {
         // Skapa popup-element
@@ -518,6 +681,11 @@ document.addEventListener('DOMContentLoaded', function() {
         closeBtn.className = 'close-btn';
         closeBtn.innerHTML = '&times;';
         closeBtn.onclick = function() {
+            // Ta bort tangentbordet om det finns
+            const keyboard = document.querySelector('.virtual-keyboard');
+            if (keyboard) {
+                keyboard.remove();
+            }
             document.body.removeChild(popup);
         };
         
@@ -528,11 +696,28 @@ document.addEventListener('DOMContentLoaded', function() {
         const searchInput = document.createElement('input');
         searchInput.type = 'text';
         searchInput.placeholder = 'Skriv varunamn:';
+        searchInput.style.width = '100%';
+        searchInput.style.padding = '10px';
+        searchInput.style.fontSize = '16px'; // Minst 16px för att förhindra zoom på iOS
+        searchInput.style.border = '1px solid #ccc';
+        searchInput.style.borderRadius = '4px';
+        searchInput.style.boxSizing = 'border-box';
+        
+        // Lägg till en klickhändelse för att visa det virtuella tangentbordet
+        searchInput.addEventListener('click', function() {
+            createVirtualKeyboard(searchInput);
+        });
         
         const searchButton = document.createElement('button');
         searchButton.className = 'primary-button';
         searchButton.textContent = 'SÖK';
+        searchButton.style.marginLeft = '10px';
         searchButton.onclick = function() {
+            // Ta bort tangentbordet om det finns
+            const keyboard = document.querySelector('.virtual-keyboard');
+            if (keyboard) {
+                keyboard.remove();
+            }
             // Stäng denna popup
             document.body.removeChild(popup);
             // Visa sökresultat baserat på söktermen
@@ -574,6 +759,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Klickhändelse
             categoryBox.onclick = function() {
+                // Ta bort tangentbordet om det finns
+                const keyboard = document.querySelector('.virtual-keyboard');
+                if (keyboard) {
+                    keyboard.remove();
+                }
                 // Stäng denna popup
                 document.body.removeChild(popup);
                 // Visa produkter för den valda kategorin
@@ -591,7 +781,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.appendChild(popup);
         
-        // Fokusera på sökfältet
+        // Fokusera på sökfältet men visa inte tangentbordet automatiskt
         setTimeout(() => {
             searchInput.focus();
         }, 100);
@@ -610,6 +800,11 @@ document.addEventListener('DOMContentLoaded', function() {
         closeBtn.className = 'close-btn';
         closeBtn.innerHTML = '&times;';
         closeBtn.onclick = function() {
+            // Ta bort tangentbordet om det finns
+            const keyboard = document.querySelector('.virtual-keyboard');
+            if (keyboard) {
+                keyboard.remove();
+            }
             document.body.removeChild(popup);
         };
         
@@ -621,6 +816,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const searchTerm = searchInput.value.trim();
             
             if (searchTerm) {
+                // Ta bort tangentbordet om det finns
+                const keyboard = document.querySelector('.virtual-keyboard');
+                if (keyboard) {
+                    keyboard.remove();
+                }
                 // Simulera sökning och lägg till en produkt
                 addSearchedProduct(searchTerm);
                 document.body.removeChild(popup);
@@ -631,7 +831,18 @@ document.addEventListener('DOMContentLoaded', function() {
         searchInput.type = 'text';
         searchInput.id = 'search-input';
         searchInput.placeholder = 'Skriv varunamn...';
+        searchInput.style.width = '100%';
+        searchInput.style.padding = '10px';
+        searchInput.style.fontSize = '16px'; // Minst 16px för att förhindra zoom på iOS
+        searchInput.style.border = '1px solid #ccc';
+        searchInput.style.borderRadius = '4px';
+        searchInput.style.boxSizing = 'border-box';
         searchInput.autocomplete = 'off';
+        
+        // Lägg till en klickhändelse för att visa det virtuella tangentbordet
+        searchInput.addEventListener('click', function() {
+            createVirtualKeyboard(searchInput);
+        });
         
         // Om en sökterm angavs, fyll i sökfältet
         if (searchTerm) {
@@ -642,12 +853,14 @@ document.addEventListener('DOMContentLoaded', function() {
         searchButton.type = 'submit';
         searchButton.className = 'primary-button';
         searchButton.textContent = 'Sök';
+        searchButton.style.marginLeft = '10px';
         
         // Skapa kategorinavigering
         const categoryNav = document.createElement('div');
         categoryNav.className = 'category-nav';
         categoryNav.style.gap = '5px';
         categoryNav.style.marginBottom = '10px';
+        categoryNav.style.marginTop = '10px';
         
         const categories = [
             'Bröd', 'Frukt', 'Grönsaker', 'Drycker', 
@@ -735,20 +948,43 @@ document.addEventListener('DOMContentLoaded', function() {
             categoryNav.appendChild(categoryBtn);
         });
         
+        // Skapa en scrollbar container för produkterna
+        const scrollableContainer = document.createElement('div');
+        scrollableContainer.style.overflowY = 'auto';
+        scrollableContainer.style.maxHeight = 'calc(100vh - 250px)'; // Begränsa höjden för att undvika överlappning
+        
         const suggestedItems = document.createElement('div');
         suggestedItems.className = 'suggested-items';
         suggestedItems.style.gap = '10px';
         suggestedItems.style.marginTop = '0.5rem';
         
+        // Lägg till suggestedItems i den scrollbara containern
+        scrollableContainer.appendChild(suggestedItems);
+        
         // Lägg till en container för färdig-knappen
         const finishButtonContainer = document.createElement('div');
         finishButtonContainer.className = 'finish-button-container';
+        finishButtonContainer.style.marginTop = '20px';
+        finishButtonContainer.style.textAlign = 'center';
         
         // Skapa färdig-knappen
         const finishButton = document.createElement('button');
         finishButton.className = 'finish-button';
         finishButton.textContent = 'Färdig';
+        finishButton.style.padding = '12px 30px';
+        finishButton.style.fontSize = '16px';
+        finishButton.style.backgroundColor = '#e30613';
+        finishButton.style.color = 'white';
+        finishButton.style.border = 'none';
+        finishButton.style.borderRadius = '4px';
+        finishButton.style.cursor = 'pointer';
         finishButton.onclick = function() {
+            // Ta bort tangentbordet om det finns
+            const keyboard = document.querySelector('.virtual-keyboard');
+            if (keyboard) {
+                keyboard.remove();
+            }
+            
             // Samla in alla produkter med antal > 0
             const selectedProducts = [];
             const quantityInputs = document.querySelectorAll('.quantity-value');
@@ -791,7 +1027,7 @@ document.addEventListener('DOMContentLoaded', function() {
         popupContent.appendChild(searchForm);
         popupContent.appendChild(categoryNav);
         popupContent.appendChild(subcategoryNav);
-        popupContent.appendChild(suggestedItems);
+        popupContent.appendChild(scrollableContainer);
         popupContent.appendChild(finishButtonContainer);
         popup.appendChild(popupContent);
         
@@ -812,7 +1048,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Fokusera på sökfältet
+        // Fokusera på sökfältet men visa inte tangentbordet automatiskt
         setTimeout(() => {
             searchInput.focus();
         }, 100);
