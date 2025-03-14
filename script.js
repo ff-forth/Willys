@@ -425,11 +425,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.removeChild(popup);
         };
         
-        const title = document.createElement('h3');
-        title.textContent = 'SÖK VARA';
-        title.style.textAlign = 'center';
-        title.style.marginBottom = '1.5rem';
-        
         // Skapa sökfält
         const searchForm = document.createElement('div');
         searchForm.className = 'search-form';
@@ -494,7 +489,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Lägg till allt i popupen
         popupContent.appendChild(closeBtn);
-        popupContent.appendChild(title);
         popupContent.appendChild(searchForm);
         popupContent.appendChild(categoryGrid);
         popup.appendChild(popupContent);
@@ -522,9 +516,6 @@ document.addEventListener('DOMContentLoaded', function() {
         closeBtn.onclick = function() {
             document.body.removeChild(popup);
         };
-        
-        const title = document.createElement('h3');
-        title.textContent = 'Sök vara';
         
         const searchForm = document.createElement('form');
         searchForm.className = 'search-form';
@@ -693,7 +684,6 @@ document.addEventListener('DOMContentLoaded', function() {
         searchForm.appendChild(searchButton);
         
         popupContent.appendChild(closeBtn);
-        popupContent.appendChild(title);
         popupContent.appendChild(searchForm);
         popupContent.appendChild(categoryNav);
         popupContent.appendChild(subcategoryNav);
