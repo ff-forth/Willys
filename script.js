@@ -1096,7 +1096,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const img = document.createElement('img');
         img.className = 'card-icon';
-        img.src = 'https://cdn-icons-png.flaticon.com/512/1599/1599506.png';
+        img.src = 'https://cdn-icons-png.flaticon.com/128/2929/2929016.png';
         img.alt = 'Våg';
         
         scaleImage.appendChild(img);
