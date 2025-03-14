@@ -159,9 +159,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Uppdatera händelsehanteraren för betalningsknappen
     document.getElementById('proceed-to-payment').addEventListener('click', function() {
         if (cart.length > 0) {
-            // Gå direkt till kortbetalning istället för betalningsmetodssidan
-            showPage('card-payment-page');
-            simulateCardPayment();
+            // Visa popup om att blippa kortet först, med parameter true för att indikera att det kommer från betalningsknappen
+            showBlipCardPopup(true);
         } else {
             // Visa popup med meddelande om att kundvagnen är tom
             showEmptyCartPopup();
@@ -279,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Funktion för att visa popup om att blippa kortet
-    function showBlipCardPopup() {
+    function showBlipCardPopup(fromPaymentButton = false) {
         // Skapa popup-element
         const popup = document.createElement('div');
         popup.className = 'popup popup-large';
@@ -301,7 +300,12 @@ document.addEventListener('DOMContentLoaded', function() {
         clickableArea.className = 'popup-clickable-area';
         
         const message = document.createElement('p');
-        message.textContent = 'Vänligen blippa ditt kort i kortterminalen innan du börjar skanna dina varor.';
+        // Visa olika texter beroende på varifrån funktionen anropas
+        if (fromPaymentButton) {
+            message.textContent = 'Vänligen vänta, kortet kontrolleras...';
+        } else {
+            message.textContent = 'Vänligen blippa ditt kort i kortterminalen innan du börjar skanna dina varor.';
+        }
         
         // Lägg till kortikon
         const cardIconContainer = document.createElement('div');
@@ -313,7 +317,15 @@ document.addEventListener('DOMContentLoaded', function() {
         cardIcon.alt = 'Kortikon';
         cardIcon.onclick = function() {
             document.body.removeChild(popup);
-            showPage('scanning-page');
+            
+            // Om funktionen anropades från betalningsknappen, gå till kortbetalningssidan
+            if (fromPaymentButton) {
+                showPage('card-payment-page');
+                simulateCardPayment();
+            } else {
+                // Annars gå till skanningssidan som vanligt
+                showPage('scanning-page');
+            }
         };
         
         cardIconContainer.appendChild(cardIcon);
