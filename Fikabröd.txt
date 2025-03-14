@@ -112,3 +112,13 @@ La Lorraine 56g
 @https://assets.axfood.se/image/upload/f_auto,t_200/07350031132601_C1C1_s01 
 Donut Choklad med Strössel
 La Lorraine 56g
+
+
+
+@https://cdn-icons-png.flaticon.com/128/4163/4163704.png för grönsaker
+@https://cdn-icons-png.flaticon.com/128/7146/7146171.png för bröd
+@https://cdn-icons-png.flaticon.com/128/3081/3081887.png för frukter
+@https://cdn-icons-png.flaticon.com/128/3194/3194647.png för dricker
+@https://cdn-icons-png.flaticon.com/128/2515/2515150.png för färdigmat
+@https://cdn-icons-png.flaticon.com/128/8188/8188235.png för djupfrys
+@https://cdn-icons-png.flaticon.com/128/6155/6155136.png för övrigt
