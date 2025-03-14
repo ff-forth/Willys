@@ -100,15 +100,96 @@ document.addEventListener('DOMContentLoaded', function() {
             // Visa produktlistan
             productList.style.display = 'block';
             
+            // Skapa rubrikrad för produktlistan
+            const headerRow = document.createElement('div');
+            headerRow.className = 'product-header';
+            headerRow.innerHTML = `
+                <span>Produkt</span>
+                <span style="text-align: center;">Antal</span>
+                <span>Pris</span>
+                <span>Summa</span>
+            `;
+            productListContainer.insertBefore(headerRow, productList);
+            
             // Visa grupperade produkter
             Object.values(groupedProducts).forEach(item => {
                 const li = document.createElement('li');
-                li.innerHTML = `
-                    <span>${item.name}</span>
-                    <span>${item.quantity} st</span>
-                    <span>${item.price.toFixed(2)} kr</span>
-                    <span>${(item.price * item.quantity).toFixed(2)} kr</span>
-                `;
+                li.style.display = 'grid';
+                li.style.gridTemplateColumns = '3fr 1fr 1fr 1fr';
+                li.style.padding = '12px 10px';
+                li.style.borderBottom = '1px solid #eee';
+                li.style.alignItems = 'center';
+                
+                // Skapa produktnamn
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = item.name;
+                nameSpan.style.textAlign = 'left';
+                
+                // Skapa antalskontroll
+                const quantityContainer = document.createElement('span');
+                quantityContainer.className = 'quantity-container';
+                quantityContainer.style.display = 'flex';
+                quantityContainer.style.alignItems = 'center';
+                quantityContainer.style.justifyContent = 'center';
+                
+                // Skapa minusknapp
+                const minusBtn = document.createElement('button');
+                minusBtn.className = 'quantity-btn-small';
+                minusBtn.textContent = '-';
+                minusBtn.style.width = '24px';
+                minusBtn.style.height = '24px';
+                minusBtn.style.padding = '0';
+                minusBtn.style.marginRight = '5px';
+                minusBtn.style.borderRadius = '50%';
+                minusBtn.style.backgroundColor = '#e30613';
+                minusBtn.style.color = 'white';
+                minusBtn.style.border = 'none';
+                minusBtn.style.cursor = 'pointer';
+                minusBtn.style.fontSize = '14px';
+                minusBtn.style.fontWeight = 'bold';
+                minusBtn.onclick = function() {
+                    // Hitta alla förekomster av denna produkt i kundvagnen
+                    const productIndices = [];
+                    cart.forEach((cartItem, index) => {
+                        if (cartItem.name === item.name) {
+                            productIndices.push(index);
+                        }
+                    });
+                    
+                    // Ta bort en förekomst av produkten från kundvagnen
+                    if (productIndices.length > 0) {
+                        // Ta bort den sista förekomsten
+                        cart.splice(productIndices[productIndices.length - 1], 1);
+                        // Uppdatera kundvagnen
+                        updateCart();
+                    }
+                };
+                
+                // Skapa antaltext
+                const quantityText = document.createElement('span');
+                quantityText.textContent = `${item.quantity} st`;
+                
+                // Lägg till minusknapp och antaltext i antalsbehållaren
+                quantityContainer.appendChild(minusBtn);
+                quantityContainer.appendChild(quantityText);
+                
+                // Skapa prisspann
+                const priceSpan = document.createElement('span');
+                priceSpan.textContent = `${item.price.toFixed(2)} kr`;
+                priceSpan.style.textAlign = 'right';
+                
+                // Skapa summaspann
+                const totalSpan = document.createElement('span');
+                totalSpan.textContent = `${(item.price * item.quantity).toFixed(2)} kr`;
+                totalSpan.style.textAlign = 'right';
+                
+                // Lägg till alla element i li
+                li.appendChild(nameSpan);
+                li.appendChild(quantityContainer);
+                li.appendChild(priceSpan);
+                li.appendChild(totalSpan);
+                
+                // Lägg till li i produktlistan
                 productList.appendChild(li);
             });
         }
