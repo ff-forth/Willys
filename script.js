@@ -399,10 +399,13 @@ document.addEventListener('DOMContentLoaded', function() {
         cardIcon.onclick = function() {
             document.body.removeChild(popup);
             
-            // Om funktionen anropades från betalningsknappen, gå till kortbetalningssidan
+            // Om funktionen anropades från betalningsknappen, återgå till startsidan
             if (fromPaymentButton) {
-                showPage('card-payment-page');
-                simulateCardPayment();
+                // Återställ kundvagnen
+                cart = [];
+                updateCart();
+                // Gå tillbaka till startsidan
+                showPage('scan-method-page');
             } else {
                 // Annars gå till skanningssidan som vanligt
                 showPage('scanning-page');
