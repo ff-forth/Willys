@@ -844,6 +844,16 @@ document.addEventListener('DOMContentLoaded', function() {
             createVirtualKeyboard(searchInput);
         });
         
+        // Håll reda på aktuell kategori och underkategori
+        let currentCategory = initialCategory;
+        let currentSubcategory = 'Alla';
+        
+        // Lägg till en input-händelse för att filtrera produkter medan användaren skriver
+        searchInput.addEventListener('input', function() {
+            const searchText = this.value;
+            filterProducts(searchText, suggestedItems, currentCategory, currentSubcategory);
+        });
+        
         // Om en sökterm angavs, fyll i sökfältet
         if (searchTerm) {
             searchInput.value = searchTerm;
@@ -893,19 +903,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 subcatBtn.classList.add('active');
                 
-                // Visa produkter baserat på underkategori
-                if (subcat === 'Alla') {
-                    // Visa alla brödprodukter
-                    showAllBreadProducts(suggestedItems);
-                } else if (subcat === 'kaffebröd') {
-                    // Visa fikabröd (kaffebröd)
-                    showCategoryProducts('Fikabröd', suggestedItems);
-                } else if (subcat === 'Matbröd') {
-                    // Visa matbröd
-                    showCategoryProducts('Bröd', suggestedItems);
+                // Uppdatera aktuell underkategori
+                currentSubcategory = subcat;
+                
+                // Uppdatera sökningen om det finns text i sökfältet
+                const searchText = searchInput.value.trim();
+                if (searchText) {
+                    filterProducts(searchText, suggestedItems, currentCategory, currentSubcategory);
                 } else {
-                    // För andra underkategorier, visa bara bröd för nu
-                    showCategoryProducts('Bröd', suggestedItems);
+                    // Visa produkter baserat på underkategori
+                    if (subcat === 'Alla') {
+                        // Visa alla brödprodukter
+                        showAllBreadProducts(suggestedItems);
+                    } else if (subcat === 'kaffebröd') {
+                        // Visa fikabröd (kaffebröd)
+                        showCategoryProducts('Fikabröd', suggestedItems);
+                    } else if (subcat === 'Matbröd') {
+                        // Visa matbröd
+                        showCategoryProducts('Bröd', suggestedItems);
+                    } else {
+                        // För andra underkategorier, visa bara bröd för nu
+                        showCategoryProducts('Bröd', suggestedItems);
+                    }
                 }
             };
             subcategoryNav.appendChild(subcatBtn);
@@ -926,6 +945,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 categoryBtn.classList.add('active');
                 
+                // Uppdatera aktuell kategori
+                currentCategory = category;
+                
+                // Rensa sökfältet när kategori ändras
+                searchInput.value = '';
+                
                 // Visa/dölj underkategorier baserat på vald kategori
                 if (category === 'Bröd') {
                     subcategoryNav.style.display = 'flex';
@@ -933,6 +958,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.querySelectorAll('.category-nav + .category-nav .category-btn').forEach((btn, i) => {
                         if (i === 0) {
                             btn.classList.add('active');
+                            currentSubcategory = 'Alla';
                         } else {
                             btn.classList.remove('active');
                         }
@@ -941,6 +967,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showAllBreadProducts(suggestedItems);
                 } else {
                     subcategoryNav.style.display = 'none';
+                    currentSubcategory = null;
                     // Visa produkter för den valda kategorin
                     showCategoryProducts(category, suggestedItems);
                 }
@@ -1514,5 +1541,182 @@ document.addEventListener('DOMContentLoaded', function() {
         if (instructionElement && cart.length > 0) {
             instructionElement.style.display = 'none';
         }
+    }
+
+    // Funktion för att filtrera produkter baserat på söktext
+    function filterProducts(searchText, container, category, subcategory) {
+        // Om sökfältet är tomt, visa alla produkter i kategorin/underkategorin
+        if (!searchText) {
+            if (category === 'Bröd' && subcategory === 'Alla') {
+                showAllBreadProducts(container);
+            } else if (category === 'Bröd' && subcategory === 'kaffebröd') {
+                showCategoryProducts('Fikabröd', container);
+            } else if (category === 'Bröd') {
+                showCategoryProducts('Bröd', container);
+            } else {
+                showCategoryProducts(category, container);
+            }
+            return;
+        }
+        
+        // Rensa befintliga produkter
+        container.innerHTML = '';
+        
+        // Hämta produkter baserat på kategori och underkategori
+        let productsToFilter = [];
+        
+        if (category === 'Bröd' && subcategory === 'Alla') {
+            // Kombinera produkter från Fikabröd och Bröd
+            productsToFilter = [
+                ...(categoryProducts['Fikabröd'] || []),
+                ...(categoryProducts['Bröd'] || [])
+            ];
+        } else if (category === 'Bröd' && subcategory === 'kaffebröd') {
+            productsToFilter = categoryProducts['Fikabröd'] || [];
+        } else if (category === 'Bröd') {
+            productsToFilter = categoryProducts['Bröd'] || [];
+        } else {
+            productsToFilter = categoryProducts[category] || [];
+        }
+        
+        // Konvertera söktexten till gemener för skiftlägesokänslig sökning
+        const lowerCaseSearchText = searchText.toLowerCase();
+        
+        // Filtrera produkter baserat på söktext (skiftlägesokänsligt)
+        // Matcha produkter som börjar med söktexten eller innehåller söktexten
+        const filteredProducts = productsToFilter.filter(item => {
+            const lowerCaseName = item.name.toLowerCase();
+            
+            // Matcha produkter som börjar med söktexten (ge dessa högre prioritet)
+            const startsWithMatch = lowerCaseName.startsWith(lowerCaseSearchText);
+            
+            // Matcha även produkter som innehåller söktexten
+            const containsMatch = lowerCaseName.includes(lowerCaseSearchText);
+            
+            // Matcha även produkter där något ord börjar med söktexten
+            const words = lowerCaseName.split(' ');
+            const wordStartsWithMatch = words.some(word => word.startsWith(lowerCaseSearchText));
+            
+            return startsWithMatch || containsMatch || wordStartsWithMatch;
+        });
+        
+        // Sortera resultaten så att produkter som börjar med söktexten kommer först
+        filteredProducts.sort((a, b) => {
+            const aName = a.name.toLowerCase();
+            const bName = b.name.toLowerCase();
+            
+            // Om a börjar med söktexten men inte b, placera a först
+            if (aName.startsWith(lowerCaseSearchText) && !bName.startsWith(lowerCaseSearchText)) {
+                return -1;
+            }
+            // Om b börjar med söktexten men inte a, placera b först
+            if (!aName.startsWith(lowerCaseSearchText) && bName.startsWith(lowerCaseSearchText)) {
+                return 1;
+            }
+            
+            // Annars sortera alfabetiskt
+            return aName.localeCompare(bName);
+        });
+        
+        // Visa inga resultat-meddelande om inga produkter hittades
+        if (filteredProducts.length === 0) {
+            const noResultsMessage = document.createElement('div');
+            noResultsMessage.style.padding = '20px';
+            noResultsMessage.style.textAlign = 'center';
+            noResultsMessage.style.color = '#666';
+            noResultsMessage.textContent = `Inga produkter hittades för "${searchText}"`;
+            container.appendChild(noResultsMessage);
+            return;
+        }
+        
+        // Visa filtrerade produkter
+        filteredProducts.forEach(item => {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.className = 'suggestion-item';
+            
+            // Skapa produktbild
+            const productImage = document.createElement('div');
+            productImage.className = 'product-image';
+            const img = document.createElement('img');
+            img.src = item.image || 'placeholder.jpg';
+            img.alt = item.name;
+            productImage.appendChild(img);
+            
+            // Skapa produktnamn
+            const productName = document.createElement('div');
+            productName.className = 'product-name';
+            productName.textContent = item.name;
+            
+            // Skapa antalskontroll
+            const productQuantity = document.createElement('div');
+            productQuantity.className = 'product-quantity';
+            
+            const quantityControl = document.createElement('div');
+            quantityControl.className = 'quantity-control';
+            
+            const minusBtn = document.createElement('button');
+            minusBtn.className = 'quantity-btn';
+            minusBtn.textContent = '-';
+            minusBtn.onclick = function(e) {
+                e.stopPropagation();
+                const input = this.parentNode.querySelector('.quantity-value');
+                let value = parseInt(input.value);
+                if (value > 0) {
+                    input.value = value - 1;
+                }
+            };
+            
+            const quantityInput = document.createElement('input');
+            quantityInput.type = 'text';
+            quantityInput.className = 'quantity-value';
+            quantityInput.value = '0';
+            quantityInput.readOnly = true;
+            
+            const plusBtn = document.createElement('button');
+            plusBtn.className = 'quantity-btn';
+            plusBtn.textContent = '+';
+            plusBtn.onclick = function(e) {
+                e.stopPropagation();
+                const input = this.parentNode.querySelector('.quantity-value');
+                let value = parseInt(input.value);
+                input.value = value + 1;
+            };
+            
+            quantityControl.appendChild(minusBtn);
+            quantityControl.appendChild(quantityInput);
+            quantityControl.appendChild(plusBtn);
+            
+            productQuantity.appendChild(quantityControl);
+            
+            // Lägg till alla delar i produktkortet
+            suggestionItem.appendChild(productImage);
+            suggestionItem.appendChild(productName);
+            suggestionItem.appendChild(productQuantity);
+            
+            // Uppdatera klickhändelsen för att lägga till varan direkt i kundvagnen och visa popup
+            suggestionItem.onclick = function(e) {
+                // Om klicket kommer från själva kortet (inte från antalskontrollen)
+                if (!e.target.closest('.quantity-control')) {
+                    // Lägg till en vara direkt
+                    cart.push(item);
+                    
+                    // Uppdatera antalet i input-fältet
+                    const input = this.querySelector('.quantity-value');
+                    let value = parseInt(input.value);
+                    input.value = value + 1;
+                    
+                    // Stäng popupen med sökfältet
+                    document.body.removeChild(document.querySelector('.popup'));
+                    
+                    // Uppdatera kundvagnen
+                    updateCart();
+                    
+                    // Visa popup om att lägga varan på vågen
+                    showPlaceOnScalePopup(item.name);
+                }
+            };
+            
+            container.appendChild(suggestionItem);
+        });
     }
 }); 
