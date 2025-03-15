@@ -815,6 +815,10 @@ body:not(.first-page) .hidden-on-first-page {
     border-color: #e30613;
 }
 
+.category-btn.active img {
+    filter: brightness(0) invert(1);
+}
+
 .suggested-items {
     flex: 1;
     overflow-y: auto;
