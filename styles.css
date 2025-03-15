@@ -207,12 +207,19 @@ button:active {
 }
 
 .total-section {
-    padding-top: 1rem;
-    border-top: 2px solid #eee;
-    font-weight: bold;
+    margin-top: auto;
     text-align: right;
+    font-weight: bold;
     font-size: 1.2rem;
-    margin: 1rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+
+.total-section p {
+    margin-bottom: 0;
 }
 
 .action-buttons {
@@ -693,7 +700,6 @@ body:not(.first-page) .hidden-on-first-page {
 }
 
 .payment-button {
-    align-self: flex-end;
     padding: 12px 25px;
     font-size: 1.1rem;
     background-color: #e30613;
@@ -703,7 +709,6 @@ body:not(.first-page) .hidden-on-first-page {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 10px;
 }
 
 .payment-icon {
