@@ -166,7 +166,7 @@ button:active {
     overflow-y: auto;
     margin: 1rem 0;
     min-height: 200px;
-    max-height: calc(100vh - 250px);
+    max-height: calc(100vh - 280px);
     list-style-type: none;
     border: 1px solid #eee;
     border-radius: 4px;
@@ -594,7 +594,7 @@ body:not(.first-page) .hidden-on-first-page {
 .scanning-container {
     display: flex;
     justify-content: center;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 80px);
     margin: 0;
     padding: 0;
     width: 100%;
@@ -617,6 +617,7 @@ body:not(.first-page) .hidden-on-first-page {
     padding: 5px;
     max-width: 90%;
     width: 90%;
+    margin-bottom: 20px;
 }
 
 .product-list-left {
