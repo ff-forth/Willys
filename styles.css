@@ -81,28 +81,16 @@ button:active {
     font-weight: bold;
 }
 
-.primary-button:hover {
-    background-color: #c70512;
-}
-
 .secondary-button {
     background-color: #f0f0f0;
     color: #333;
     border: 1px solid #ddd;
 }
 
-.secondary-button:hover {
-    background-color: #e4e4e4;
-}
-
 .help-button {
     background-color: #ffcc00;
     color: #333;
     font-weight: bold;
-}
-
-.help-button:hover {
-    background-color: #e6b800;
 }
 
 /* Välkomstsida */
@@ -1167,10 +1155,6 @@ body:not(.first-page) .hidden-on-first-page {
     border-radius: 50%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s;
-}
-
-.language-icon:hover {
-    transform: scale(1.1);
 }
 
 .welcome-message {
