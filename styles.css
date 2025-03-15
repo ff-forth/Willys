@@ -614,6 +614,18 @@ body:not(.first-page) .hidden-on-first-page {
     font-size: 1.1rem;
     margin: 20px 0 30px;
     align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.manual-select-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
 }
 
 .quick-items {
