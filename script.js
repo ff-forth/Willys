@@ -494,9 +494,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const prices = {
             'plastkasse': 7.00,
             'papperskasse': 5.00,
-            'telefonkort': 100.00
+            'telefonkort': 100.00,
+            'egen kasse': 0.00
         };
-        return prices[itemName] || 0;
+        return prices[itemName.toLowerCase()] || 0;
     }
     
     // Uppdatera händelsehanteraren för "Välj varor manuellt"
@@ -1377,7 +1378,11 @@ document.addEventListener('DOMContentLoaded', function() {
             { name: 'Tvål Flytande 500ml', price: 29.90 },
             { name: 'Tandkräm 75ml', price: 24.90 },
             { name: 'Hushållspapper 6-pack', price: 39.90 },
-            { name: 'Batterier AA 4-pack', price: 49.90 }
+            { name: 'Batterier AA 4-pack', price: 49.90 },
+            { name: 'Telefonkort', price: 100.00 },
+            { name: 'Plastkasse vit', price: 7.00 },
+            { name: 'Papperskasse brunt 32L', price: 5.00 },
+            { name: 'Egen kasse', price: 0.00 }
         ]
     };
     
