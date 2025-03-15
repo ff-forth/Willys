@@ -14,6 +14,7 @@ body {
     flex-direction: column;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 /* Header-stilar */
@@ -42,6 +43,7 @@ main {
     width: 100%;
     margin: 0;
     padding-top: 1rem;
+    overflow: hidden;
 }
 
 /* Sidhantering */
@@ -126,15 +128,17 @@ button:active {
 
 /* Skanningssida */
 .product-list {
-    padding: 5px;
-    height: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     background-color: white;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    margin-bottom: 10px;
     width: 100%;
-    margin: 0 auto;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .product-list h3 {
@@ -162,6 +166,7 @@ button:active {
     overflow-y: auto;
     margin: 1rem 0;
     min-height: 200px;
+    max-height: calc(100vh - 250px);
     list-style-type: none;
     border: 1px solid #eee;
     border-radius: 4px;
@@ -593,6 +598,7 @@ body:not(.first-page) .hidden-on-first-page {
     margin: 0;
     padding: 0;
     width: 100%;
+    overflow: hidden;
 }
 
 .product-list-container {
@@ -707,6 +713,7 @@ body:not(.first-page) .hidden-on-first-page {
     margin-bottom: 10px;
     width: 100%;
     max-width: 100%;
+    overflow: hidden;
 }
 
 .product-list h3 {
