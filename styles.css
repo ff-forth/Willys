@@ -1062,10 +1062,10 @@ body:not(.first-page) .hidden-on-first-page {
 }
 
 .scan-icon {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 1rem;
-    opacity: 0.7;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 8px;
 }
 
 /* Ta bort stilar för produktbeskrivning */
@@ -1187,6 +1187,22 @@ body:not(.first-page) .hidden-on-first-page {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Scan icon i välkomstmeddelandet */
+.welcome-scan-icon {
+    width: 128px;
+    height: 128px;
+    margin-top: 20px;
+}
+
+.welcome-icon-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 
