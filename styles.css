@@ -699,25 +699,37 @@ body:not(.first-page) .hidden-on-first-page {
     color: white;
     font-weight: bold;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.payment-button:hover {
-    background-color: #c70512;
+.payment-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 /* Uppdatera stil för hjälpknapp i topbaren */
 .call-staff-button {
-    background-color: #666666;
+    background-color: #e30613;
     color: white;
     font-weight: bold;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.call-staff-button:hover {
-    background-color: #555555;
+.help-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 /* Justera topbar-left för att centrera hjälpknappen vertikalt */
