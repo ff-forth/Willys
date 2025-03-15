@@ -1050,5 +1050,26 @@ body:not(.first-page) .hidden-on-first-page {
     filter: brightness(0) invert(1);
 }
 
+/* Språkväljare */
+.language-selector {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.language-icon {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.language-icon:hover {
+    transform: scale(1.1);
+}
+
 
 

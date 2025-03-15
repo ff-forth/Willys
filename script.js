@@ -1788,4 +1788,42 @@ document.addEventListener('DOMContentLoaded', function() {
             container.appendChild(suggestionItem);
         });
     }
+
+    // Lägg till händelsehanterare för språkväljaren
+    const englishFlag = document.getElementById('english-flag');
+    if (englishFlag) {
+        englishFlag.addEventListener('click', function() {
+            // Här kan du lägga till logik för att byta språk
+            // För nu visar vi bara en popup som meddelar att funktionen kommer snart
+            const popup = document.createElement('div');
+            popup.className = 'popup';
+            
+            const popupContent = document.createElement('div');
+            popupContent.className = 'popup-content';
+            
+            const closeBtn = document.createElement('span');
+            closeBtn.className = 'close-btn';
+            closeBtn.innerHTML = '&times;';
+            closeBtn.onclick = function() {
+                document.body.removeChild(popup);
+            };
+            
+            const message = document.createElement('p');
+            message.textContent = 'English language option coming soon!';
+            
+            const okButton = document.createElement('button');
+            okButton.className = 'primary-button';
+            okButton.textContent = 'OK';
+            okButton.onclick = function() {
+                document.body.removeChild(popup);
+            };
+            
+            popupContent.appendChild(closeBtn);
+            popupContent.appendChild(message);
+            popupContent.appendChild(okButton);
+            popup.appendChild(popupContent);
+            
+            document.body.appendChild(popup);
+        });
+    }
 }); 
