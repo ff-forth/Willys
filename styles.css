@@ -141,7 +141,7 @@ button:active {
 .product-list h3 {
     text-align: center;
     font-size: 2rem;
-    margin: 3rem 0;
+    margin: 1rem 0;
 }
 
 .scanning-instructions {
@@ -676,12 +676,13 @@ body:not(.first-page) .hidden-on-first-page {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .product-list h3 {
     text-align: center;
     font-size: 2rem;
+    margin: 1rem 0;
 }
 
 .total-section {
@@ -702,6 +703,7 @@ body:not(.first-page) .hidden-on-first-page {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-top: 10px;
 }
 
 .payment-icon {
