@@ -722,9 +722,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const searchButton = document.createElement('button');
-        searchButton.className = 'primary-button';
-        searchButton.textContent = 'SÖK';
+        searchButton.className = 'primary-button search-button';
         searchButton.style.marginLeft = '10px';
+        searchButton.style.display = 'flex';
+        searchButton.style.alignItems = 'center';
+        searchButton.style.justifyContent = 'center';
+
+        // Lägg till ikonen istället för text
+        const searchIcon = document.createElement('img');
+        searchIcon.src = 'https://cdn-icons-png.flaticon.com/128/5636/5636698.png';
+        searchIcon.alt = 'Sök';
+        searchIcon.style.width = '20px';
+        searchIcon.style.height = '20px';
+        searchButton.appendChild(searchIcon);
+
         searchButton.onclick = function() {
             // Ta bort tangentbordet om det finns
             const keyboard = document.querySelector('.virtual-keyboard');
@@ -888,10 +899,20 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const searchButton = document.createElement('button');
         searchButton.type = 'submit';
-        searchButton.className = 'primary-button';
-        searchButton.textContent = 'Sök';
+        searchButton.className = 'primary-button search-button';
         searchButton.style.marginLeft = '10px';
-        
+        searchButton.style.display = 'flex';
+        searchButton.style.alignItems = 'center';
+        searchButton.style.justifyContent = 'center';
+
+        // Lägg till ikonen istället för text
+        const searchIcon = document.createElement('img');
+        searchIcon.src = 'https://cdn-icons-png.flaticon.com/128/5636/5636698.png';
+        searchIcon.alt = 'Sök';
+        searchIcon.style.width = '20px';
+        searchIcon.style.height = '20px';
+        searchButton.appendChild(searchIcon);
+
         // Skapa kategorinavigering
         const categoryNav = document.createElement('div');
         categoryNav.className = 'category-nav';

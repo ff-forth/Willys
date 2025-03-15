@@ -1032,5 +1032,23 @@ body:not(.first-page) .hidden-on-first-page {
     object-fit: contain;
 }
 
+/* Stil för sökknapp med ikon */
+.search-button {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e30613;
+}
+
+.search-button img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
 
 
