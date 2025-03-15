@@ -668,6 +668,19 @@ document.addEventListener('DOMContentLoaded', function() {
         return keyboardContainer;
     }
 
+    // Lägg till en datastruktur för kategoriikoner
+    const categoryIcons = {
+        'Bröd': 'https://cdn-icons-png.flaticon.com/128/7146/7146171.png',
+        'Frukt': 'https://cdn-icons-png.flaticon.com/128/3081/3081887.png',
+        'Grönsaker': 'https://cdn-icons-png.flaticon.com/128/4163/4163704.png',
+        'Drycker': 'https://cdn-icons-png.flaticon.com/128/3194/3194647.png',
+        'Färdigmat': 'https://cdn-icons-png.flaticon.com/128/2515/2515150.png',
+        'Godis': 'https://cdn-icons-png.flaticon.com/128/2575/2575920.png',
+        'Djupfrys': 'https://cdn-icons-png.flaticon.com/128/8188/8188235.png',
+        'Övrig': 'https://cdn-icons-png.flaticon.com/128/6155/6155136.png',
+        'Fikabröd': 'https://cdn-icons-png.flaticon.com/128/3361/3361434.png'
+    };
+
     // Funktion för att visa kategoriväljare
     function showCategorySelectionPopup() {
         // Skapa popup-element
@@ -751,11 +764,25 @@ document.addEventListener('DOMContentLoaded', function() {
             categoryBox.style.padding = '20px 10px';
             categoryBox.style.textAlign = 'center';
             categoryBox.style.display = 'flex';
+            categoryBox.style.flexDirection = 'column';
             categoryBox.style.justifyContent = 'center';
             categoryBox.style.alignItems = 'center';
             categoryBox.style.fontWeight = 'bold';
             
-            categoryBox.textContent = category;
+            // Lägg till ikon om den finns
+            if (categoryIcons[category]) {
+                const iconImg = document.createElement('img');
+                iconImg.src = categoryIcons[category];
+                iconImg.alt = category;
+                iconImg.style.width = '50px';
+                iconImg.style.height = '50px';
+                iconImg.style.marginBottom = '10px';
+                categoryBox.appendChild(iconImg);
+            }
+            
+            const categoryText = document.createElement('span');
+            categoryText.textContent = category;
+            categoryBox.appendChild(categoryText);
             
             // Klickhändelse
             categoryBox.onclick = function() {
@@ -934,10 +961,30 @@ document.addEventListener('DOMContentLoaded', function() {
         categories.forEach(category => {
             const categoryBtn = document.createElement('button');
             categoryBtn.className = 'category-btn';
-            categoryBtn.textContent = category;
+            
+            // Lägg till ikon om den finns
+            if (categoryIcons[category]) {
+                const iconImg = document.createElement('img');
+                iconImg.src = categoryIcons[category];
+                iconImg.alt = category;
+                iconImg.style.width = '20px';
+                iconImg.style.height = '20px';
+                iconImg.style.marginRight = '5px';
+                iconImg.style.verticalAlign = 'middle';
+                categoryBtn.appendChild(iconImg);
+            }
+            
+            const categoryText = document.createElement('span');
+            categoryText.textContent = category;
+            categoryBtn.appendChild(categoryText);
+            
             categoryBtn.style.padding = '6px 12px'; // Mindre padding
             categoryBtn.style.fontSize = '0.9rem'; // Mindre textstorlek
             categoryBtn.style.margin = '0 2px 2px 0'; // Mindre marginaler
+            categoryBtn.style.display = 'flex';
+            categoryBtn.style.alignItems = 'center';
+            categoryBtn.style.justifyContent = 'center';
+            
             categoryBtn.onclick = function() {
                 // Markera den aktiva kategorin
                 document.querySelectorAll('.category-nav > .category-btn').forEach(btn => {
@@ -972,6 +1019,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showCategoryProducts(category, suggestedItems);
                 }
             };
+            
             categoryNav.appendChild(categoryBtn);
         });
         
