@@ -615,8 +615,8 @@ body:not(.first-page) .hidden-on-first-page {
     display: flex;
     flex-direction: column;
     padding: 5px;
-    max-width: 95%;
-    width: 95%;
+    max-width: 90%;
+    width: 90%;
 }
 
 .product-list-left {
