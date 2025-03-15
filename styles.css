@@ -809,10 +809,6 @@ body:not(.first-page) .hidden-on-first-page {
     object-fit: contain;
 }
 
-.category-btn:hover {
-    background-color: #e4e4e4;
-}
-
 .category-btn.active {
     background-color: #e30613;
     color: white;
@@ -897,10 +893,6 @@ body:not(.first-page) .hidden-on-first-page {
     padding: 0;
 }
 
-.quantity-btn:hover {
-    background-color: #e4e4e4;
-}
-
 .quantity-value {
     width: 50px;
     height: 36px;
@@ -928,10 +920,6 @@ body:not(.first-page) .hidden-on-first-page {
     font-size: 1.1rem;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.finish-button:hover {
-    background-color: #c70512;
 }
 
 /* Stil för tom kundvagn-meddelande */
@@ -1019,11 +1007,6 @@ body:not(.first-page) .hidden-on-first-page {
     align-items: center;
     text-align: center;
     transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.category-grid .suggestion-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .category-grid .suggestion-item img {
