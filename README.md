@@ -1,4 +1,6 @@
 # Willys Self-Checkout
+https://ff-forth.github.io/Willys/
+
 
 An interactive web application that simulates the self-checkout experience in a Willys grocery store. The project is built with HTML, CSS, and JavaScript.
 
